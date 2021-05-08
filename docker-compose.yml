@@ -1,0 +1,26 @@
+version: '3.1'
+
+services:
+
+  rails:
+    build: .
+    ports:
+      - '4000:3000'
+    links:
+      - mysql
+      - redis
+
+  redis:
+    image: redis:6.2.3
+    restart: always
+
+  mysql:
+    image: mysql:5.7.21
+    restart: always
+    environment:
+      MYSQL_DATABASE: api_rails
+      MYSQL_USER: api_rails
+      MYSQL_PASSWORD: 123123
+      MYSQL_ROOT_PASSWORD: 123123
+    ports:
+      - '3306:3306'
