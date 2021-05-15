@@ -3,9 +3,22 @@ AllCops:
   Exclude:
     - 'bin/**/*'
     - 'config/**/*'
+    - 'db/**/*'
+    - 'db/seeds/**/*'
+    - 'engines/**/db/seeds/**/*'
+    - 'engines/**/db/migrate/**/*'
+
 
 Style/FrozenStringLiteralComment:
   Enabled: false
 
 Style/Documentation:
   Enabled: false
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+Metrics/BlockLength:
+  Enabled: false
+  Exclude:
+    - 'spec/**/*'
