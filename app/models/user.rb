@@ -12,10 +12,15 @@ class User < ApplicationRecord
 
   before_save :identifiers_preprocess, :names_preprocess
 
-  # scope :confirmed, -> { where.not(confirmed_at: nil) }
-  # scope :not_confirmed, -> { where(confirmed_at: nil) }
+  scope :by_confirmed_by_user_id, ->(user_id) { where(confirmed_by_user_id: user_id) }
+
+  scope :confirmed, -> { where.not(confirmed_at: nil) }
+  scope :not_confirmed, -> { where(confirmed_at: nil) }
+  scope :confirmed_after, ->(time) { where('confirmed_at >= ?', time) }
+  scope :confirmed_before, ->(time) { where('confirmed_at < ?', time) }
 
   scope :live, -> { confirmed.not_deleted }
+  scope :available, -> { all }
 
   def confirm
     self.confirmed_at = DateTime.now
@@ -25,9 +30,9 @@ class User < ApplicationRecord
   private
 
   def identifiers_preprocess
-    self.login = login.strip.downcase
-    self.email = email.strip.downcase
-    self.phone = phone.gsub(/\s/, '').gsub(/(^+)8/, '7').gsub(/\D/, '')
+    self.login = login&.strip&.downcase
+    self.email = email&.strip&.downcase
+    self.phone = phone&.gsub(/\D/, '')
   end
 
   def names_preprocess
