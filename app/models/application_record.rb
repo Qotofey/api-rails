@@ -12,16 +12,22 @@ class ApplicationRecord < ActiveRecord::Base
   scope :by_updated_by_user_id, ->(user_id) { where(updated_by_user_id: user_id) }
   scope :by_deleted_by_user_id, ->(user_id) { where(updated_by_user_id: user_id) }
 
-  scope :created_after, ->(time) { where('created_at >= ?', time) }
+  scope :created_after, ->(time) { where('created_at > ?', time) }
   scope :created_before, ->(time) { where('created_at < ?', time) }
+  scope :created_from, ->(time) { where('created_at >= ?', time) }
+  scope :created_to, ->(time) { where('created_at <= ?', time) }
 
-  scope :updated_after, ->(time) { where('updated_at >= ?', time) }
+  scope :updated_after, ->(time) { where('updated_at > ?', time) }
   scope :updated_before, ->(time) { where('updated_at < ?', time) }
+  scope :updated_from, ->(time) { where('updated_at >= ?', time) }
+  scope :updated_to, ->(time) { where('updated_at <= ?', time) }
 
   scope :deleted, -> { where.not(deleted_at: nil) }
   scope :not_deleted, -> { where(deleted_at: nil) }
-  scope :deleted_after, ->(time) { where('deleted_at >= ?', time) }
+  scope :deleted_after, ->(time) { where('deleted_at > ?', time) }
   scope :deleted_before, ->(time) { where('deleted_at < ?', time) }
+  scope :deleted_from, ->(time) { where('deleted_at >= ?', time) }
+  scope :deleted_to, ->(time) { where('deleted_at <= ?', time) }
 
   # after_initialize :set_initiators
 

@@ -16,8 +16,35 @@ class User < ApplicationRecord
 
   scope :confirmed, -> { where.not(confirmed_at: nil) }
   scope :not_confirmed, -> { where(confirmed_at: nil) }
-  scope :confirmed_after, ->(time) { where('confirmed_at >= ?', time) }
+  scope :confirmed_after, ->(time) { where('confirmed_at > ?', time) }
   scope :confirmed_before, ->(time) { where('confirmed_at < ?', time) }
+  scope :confirmed_from, ->(time) { where('confirmed_at >= ?', time) }
+  scope :confirmed_to, ->(time) { where('confirmed_at <= ?', time) }
+
+  scope :by_birth_date, -> (date) { where(birth_date: date) }
+  scope :birth_date_after, ->(date) { where('birth_date > ?', date) }
+  scope :birth_date_before, ->(date) { where('birth_date < ?', date) }
+  scope :birth_date_from, ->(date) { where('birth_date >= ?', date) }
+  scope :birth_date_to, ->(date) { where('birth_date <= ?', date) }
+
+  scope :by_login, lambda { |login|
+    where("LOWER(#{table_name}.login) LIKE ?", "%#{login.strip.downcase}%")
+  }
+  scope :by_phone, lambda { |phone|
+    where("#{table_name}.phone LIKE ?", "%#{phone.gsub(/\s/, '').gsub(/(^+)8/, '7').gsub(/\D/, '')}%")
+  }
+  scope :by_email, lambda { |email|
+    where("LOWER(#{table_name}.email) LIKE ?", "%#{email.strip.downcase}%")
+  }
+  scope :by_first_name, lambda { |name|
+    where("LOWER(#{table_name}.first_name) LIKE ?", "%#{name.strip.downcase}%")
+  }
+  scope :by_middle_name, lambda { |name|
+    where("LOWER(#{table_name}.middle_name) LIKE ?", "%#{name.strip.downcase}%")
+  }
+  scope :by_last_name, lambda { |name|
+    where("LOWER(#{table_name}.last_name) LIKE ?", "%#{name.strip.downcase}%")
+  }
 
   scope :live, -> { confirmed.not_deleted }
   scope :available, -> { all }
