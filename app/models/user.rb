@@ -21,7 +21,7 @@ class User < ApplicationRecord
   scope :confirmed_from, ->(time) { where('confirmed_at >= ?', time) }
   scope :confirmed_to, ->(time) { where('confirmed_at <= ?', time) }
 
-  scope :by_birth_date, -> (date) { where(birth_date: date) }
+  scope :by_birth_date, ->(date) { where(birth_date: date) }
   scope :birth_date_after, ->(date) { where('birth_date > ?', date) }
   scope :birth_date_before, ->(date) { where('birth_date < ?', date) }
   scope :birth_date_from, ->(date) { where('birth_date >= ?', date) }
