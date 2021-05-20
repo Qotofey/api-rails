@@ -5,6 +5,7 @@ gem 'active_model_serializers'
 gem 'mysql2', '~> 0.5'
 gem 'puma', '~> 5.0'
 gem 'rails', '~> 6.1.3', '>= 6.1.3.2'
+gem 'will_paginate'
 
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
