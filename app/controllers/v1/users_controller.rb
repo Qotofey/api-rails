@@ -2,9 +2,9 @@ class V1::UsersController < ApplicationController
   before_action :set_user, only: %i[show update destroy]
 
   def index
-    @users = User.all
+    collection = Users::IndexPresenter.new(params).users
 
-    render json: @users
+    render json: collection
   end
 
   def show

@@ -12,9 +12,15 @@ class ApplicationPresenter
 
   private
 
+  def apply_filters; end
+
+  def apply_order; end
+
   def include_tables; end
 
-  def pagination; end
+  def pagination
+    @collection = collection.paginate(pagination_params)
+  end
 
   def pagination_params
     { page: page, per_page: per_page }
