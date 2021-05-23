@@ -4,18 +4,18 @@ class V1::UsersController < ApplicationController
   def index
     collection = Users::IndexPresenter.new(params).users
 
-    render json: collection
+    render_collection collection, each_serializer: Users::IndexSerializer
   end
 
   def show
-    render json: ::Users::ShowSerializer.new(@user).as_json
+    render json: ::Users::ShowSerializer.new(@user).as_json, status: :ok
   end
 
   def create
     @user = User.new(user_params)
 
     if @user.save
-      render json: @user, status: :created, location: @user
+      render json: ::Users::CreateSerializer.new(@user).as_json, status: :created
     else
       render json: @user.errors, status: :unprocessable_entity
     end
@@ -23,14 +23,14 @@ class V1::UsersController < ApplicationController
 
   def update
     if @user.update(user_params)
-      render json: @user
+      render json: ::Users::UpdateSerializer.new(@user).as_json
     else
       render json: @user.errors, status: :unprocessable_entity
     end
   end
 
   def destroy
-    @user.destroy
+    @user.soft_destroy
   end
 
   private

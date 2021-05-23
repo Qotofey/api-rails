@@ -1,6 +1,6 @@
 class Users::IndexPresenter < ApplicationPresenter
   def users
-    @collection = User.available.includes(*include_tables).ordered
+    @collection = User.available.ordered
 
     pagination
     collection
