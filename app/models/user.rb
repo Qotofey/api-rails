@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  attr_accessor :confirmed, :deleted
+
   enum gender: {
     male: 0,
     female: 1
@@ -10,7 +12,7 @@ class User < ApplicationRecord
   validates :last_name, presence: true
   validates :login, presence: true, uniqueness: { case_sensitive: false }
 
-  before_save :identifiers_preprocess, :names_preprocess
+  before_save :identifiers_preprocess, :names_preprocess, :check_confirmation, :check_deletion
 
   scope :by_confirmed_by_user_id, ->(user_id) { where(confirmed_by_user_id: user_id) }
 
@@ -31,7 +33,7 @@ class User < ApplicationRecord
     where("LOWER(#{table_name}.login) LIKE ?", "%#{login.strip.downcase}%")
   }
   scope :by_phone, lambda { |phone|
-    where("#{table_name}.phone LIKE ?", "%#{phone.gsub(/\s/, '').gsub(/(^+)8/, '7').gsub(/\D/, '')}%")
+    where("#{table_name}.phone LIKE ?", "%#{phone.gsub(/\s/, '').sub(/(^+)8/, '7').gsub(/\D/, '')}%")
   }
   scope :by_email, lambda { |email|
     where("LOWER(#{table_name}.email) LIKE ?", "%#{email.strip.downcase}%")
@@ -54,6 +56,23 @@ class User < ApplicationRecord
     save(validate: false)
   end
 
+  def unconfirm
+    self.confirmed_at = nil
+    save(validate: false)
+  end
+
+  def full_name
+    @full_name ||= [first_name, middle_name, last_name].join(' ').gsub(/\s{2,}/, ' ').strip
+  end
+
+  def full_name_with_email
+    @full_name_with_email ||= "#{full_name} (#{email})"
+  end
+
+  def format_phone
+    @format_phone ||= "+#{phone}"
+  end
+
   private
 
   def identifiers_preprocess
@@ -66,5 +85,19 @@ class User < ApplicationRecord
     self.first_name = first_name.strip.capitalize
     self.middle_name = middle_name&.strip&.capitalize
     self.last_name = last_name.strip.capitalize
+  end
+
+  def check_confirmation
+    return unless @confirmed.in? [false, true]
+
+    self.confirmed_by_user_id = @confirmed ? current_user_id : nil
+    self.confirmed_at = @confirmed ? DateTime.now : nil
+  end
+
+  def check_deletion
+    return unless @deleted.in? [false, true]
+
+    self.deleted_by_user_id = @deleted ? current_user_id : nil
+    self.deleted_at = @deleted ? DateTime.now : nil
   end
 end

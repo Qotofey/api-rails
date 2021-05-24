@@ -16,14 +16,8 @@ RSpec.describe '/v1/users', type: :request do
   # This should return the minimal set of attributes required to create a valid
   # User. As you add validations to User, be sure to
   # adjust the attributes here as well.
-  let(:valid_attributes) do
-    skip('Add a hash of attributes valid for your model')
-  end
-
-  let(:invalid_attributes) do
-    skip('Add a hash of attributes invalid for your model')
-  end
-
+  let(:valid_attributes) { attributes_for(:user) }
+  let(:invalid_attributes) { { login: nil } }
   # This should return the minimal set of values that should be in the headers
   # in order to pass any filters (e.g. authentication) defined in
   # UsersController, or in your router and rack
@@ -33,16 +27,18 @@ RSpec.describe '/v1/users', type: :request do
   end
 
   describe 'GET /v1/index' do
+    let!(:users) { create_list(:user, 5) }
+
     it 'renders a successful response' do
-      User.create! valid_attributes
       get v1_users_url, headers: valid_headers, as: :json
       expect(response).to be_successful
     end
   end
 
   describe 'GET /v1/show' do
+    let(:user) { create(:user) }
+
     it 'renders a successful response' do
-      user = User.create! valid_attributes
       get v1_user_url(user), as: :json
       expect(response).to be_successful
     end
@@ -77,19 +73,20 @@ RSpec.describe '/v1/users', type: :request do
         post v1_users_url,
              params: { user: invalid_attributes }, headers: valid_headers, as: :json
         expect(response).to have_http_status(:unprocessable_entity)
-        expect(response.content_type).to eq('application/json')
+        expect(response.content_type).to eq('application/json; charset=utf-8')
       end
     end
   end
 
   describe 'PATCH /v1/update' do
+    let(:user) { create(:user) }
+
     context 'with valid parameters' do
       let(:new_attributes) do
-        skip('Add a hash of attributes valid for your model')
+        { confirmed: false }
       end
 
       it 'updates the requested user' do
-        user = User.create! valid_attributes
         patch v1_user_url(user),
               params: { user: new_attributes }, headers: valid_headers, as: :json
         user.reload
@@ -97,7 +94,6 @@ RSpec.describe '/v1/users', type: :request do
       end
 
       it 'renders a JSON response with the user' do
-        user = User.create! valid_attributes
         patch v1_user_url(user),
               params: { user: new_attributes }, headers: valid_headers, as: :json
         expect(response).to have_http_status(:ok)
@@ -106,22 +102,30 @@ RSpec.describe '/v1/users', type: :request do
     end
 
     context 'with invalid parameters' do
+      let(:user) { create(:user) }
+
       it 'renders a JSON response with errors for the user' do
-        user = User.create! valid_attributes
         patch v1_user_url(user),
               params: { user: invalid_attributes }, headers: valid_headers, as: :json
         expect(response).to have_http_status(:unprocessable_entity)
-        expect(response.content_type).to eq('application/json')
+        expect(response.content_type).to eq('application/json; charset=utf-8')
       end
     end
   end
 
   describe 'DELETE /v1/destroy' do
-    it 'destroys the requested user' do
-      user = User.create! valid_attributes
+    let!(:user) { create(:user) }
+
+    it 'hides the requested user' do
       expect do
         delete v1_user_url(user), headers: valid_headers, as: :json
-      end.to change(User, :count).by(-1)
+      end.to change(User.not_deleted, :count).by(-1)
+    end
+
+    it 'not destroys the requested user' do
+      expect do
+        delete v1_user_url(user), headers: valid_headers, as: :json
+      end.to change(User, :count).by(0)
     end
   end
 end

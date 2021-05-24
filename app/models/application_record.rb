@@ -29,7 +29,7 @@ class ApplicationRecord < ActiveRecord::Base
   scope :deleted_from, ->(time) { where('deleted_at >= ?', time) }
   scope :deleted_to, ->(time) { where('deleted_at <= ?', time) }
 
-  # after_initialize :set_initiators
+  after_initialize :set_initiators
 
   def soft_destroy
     self.deleted_at = DateTime.now
@@ -41,7 +41,16 @@ class ApplicationRecord < ActiveRecord::Base
     save(validate: false)
   end
 
-  def set_initiators; end
+  def current_user_id
+    1
+  end
+
+  def set_initiators
+    return unless new_record?
+
+    self.created_by_user_id ||= current_user_id if respond_to?(:created_by_user_id)
+    self.updated_by_user_id ||= current_user_id if respond_to?(:updated_by_user_id)
+  end
 
   # class << self
   #   %i[integer string date datetime].each do |type_name|

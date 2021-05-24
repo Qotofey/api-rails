@@ -44,8 +44,7 @@ class V1::UsersController < ApplicationController
   end
 
   def allowed_params
-    %i[login first_name last_name middle_name email phone password_digest birth_date gender
-       confirmed_at deleted_at
-       created_by_user_id updated_by_user_id deleted_by_user_id confirmed_by_user_id]
+    %i[login first_name last_name middle_name email phone birth_date gender confirmed deleted
+       password password_confirmation]
   end
 end
