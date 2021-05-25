@@ -29,7 +29,7 @@
 #  index_users_on_updated_by_user_id    (updated_by_user_id)
 #
 class User < ApplicationRecord
-  attr_accessor :confirmed, :deleted
+  attr_writer :confirmed, :deleted
 
   enum gender: {
     male: 0,
@@ -41,6 +41,7 @@ class User < ApplicationRecord
   validates :first_name, presence: true
   validates :last_name, presence: true
   validates :login, presence: true, uniqueness: { case_sensitive: false }
+  validates :email, presence: true, uniqueness: { case_sensitive: false }
 
   before_save :identifiers_preprocess, :names_preprocess, :check_confirmation, :check_deletion
 
@@ -92,7 +93,7 @@ class User < ApplicationRecord
   end
 
   def full_name
-    @full_name ||= [first_name, middle_name, last_name].join(' ').gsub(/\s{2,}/, ' ').strip
+    @full_name ||= [first_name, middle_name, last_name].select(&:present?).join(' ')
   end
 
   def full_name_with_email

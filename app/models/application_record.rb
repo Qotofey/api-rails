@@ -30,6 +30,7 @@ class ApplicationRecord < ActiveRecord::Base
   scope :deleted_to, ->(time) { where('deleted_at <= ?', time) }
 
   after_initialize :set_initiators
+  before_update :check_update
 
   def soft_destroy
     self.deleted_at = DateTime.now
@@ -49,6 +50,10 @@ class ApplicationRecord < ActiveRecord::Base
     return unless new_record?
 
     self.created_by_user_id ||= current_user_id if respond_to?(:created_by_user_id)
+    self.updated_by_user_id ||= current_user_id if respond_to?(:updated_by_user_id)
+  end
+
+  def check_update
     self.updated_by_user_id ||= current_user_id if respond_to?(:updated_by_user_id)
   end
 

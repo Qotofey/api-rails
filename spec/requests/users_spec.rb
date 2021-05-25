@@ -119,7 +119,7 @@ RSpec.describe '/v1/users', type: :request do
     it 'hides the requested user' do
       expect do
         delete v1_user_url(user), headers: valid_headers, as: :json
-      end.to change(User.not_deleted, :count).by(-1)
+      end.to change(User.live, :count).by(-1)
     end
 
     it 'not destroys the requested user' do
