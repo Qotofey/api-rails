@@ -38,10 +38,12 @@ class User < ApplicationRecord
 
   belongs_to :confirmed_by_user, class_name: 'User', optional: true
 
-  validates :first_name, presence: true
-  validates :last_name, presence: true
-  validates :login, presence: true, uniqueness: { case_sensitive: false }
-  validates :email, presence: true, uniqueness: { case_sensitive: false }
+  validates :first_name, presence: true, length: { maximum: 255 }
+  validates :last_name, presence: true, length: { maximum: 255 }
+  validates :middle_name, allow_blank: true, length: { maximum: 255 }
+  validates :login, presence: true, uniqueness: { case_sensitive: false }, length: { maximum: 16 }
+  validates :email, presence: true, uniqueness: { case_sensitive: false }, length: { maximum: 255 }
+  validates :phone, uniqueness: true, allow_blank: true, length: { is: 11 }
 
   before_save :identifiers_preprocess, :names_preprocess, :check_confirmation, :check_deletion
 

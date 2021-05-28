@@ -1,0 +1,26 @@
+ru:
+  activerecord:
+    errors:
+      messages:
+        inclusion: inclusion
+        exclusion: exclusion
+        invalid: invalid
+        confirmation: confirmation
+        accepted: accepted
+        empty: empty
+        blank: blank
+        too_long: too_long
+        too_short: too_short
+        wrong_length: wrong_length
+        taken: taken
+        not_a_number: not_a_number
+        greater_than: greater_than
+        greater_than_or_equal_to: greater_than_or_equal_to
+        equal_to: equal_to
+        less_than: less_than
+        less_than_or_equal_to: less_than_or_equal_to
+        odd: odd
+        even: even
+        record_invalid: record_invalid
+
+        bad_format: bad_format
