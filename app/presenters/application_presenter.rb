@@ -22,9 +22,7 @@ class ApplicationPresenter
     values = params[column_name].to_s.split(',').map(&:strip).map(&:downcase)
     return if values.blank?
 
-    values = values.join if values.size == 1
-
-    @collection = collection.send("by_#{column_name}", values)
+    @collection = collection.send("by_#{column_name}", values.size.eql?(1) ? values.join : values)
   end
 
   def scoped_by_boolean_param(column_name); end
