@@ -62,6 +62,8 @@ class User < ApplicationRecord
   scope :birth_date_from, ->(date) { where('birth_date >= ?', date) }
   scope :birth_date_to, ->(date) { where('birth_date <= ?', date) }
 
+  scope :by_gender, ->(gender) { where(gender: gender) }
+
   scope :by_login, lambda { |login|
     where("LOWER(#{table_name}.login) LIKE ?", "%#{login.strip.downcase}%")
   }
@@ -75,7 +77,7 @@ class User < ApplicationRecord
     where("LOWER(#{table_name}.first_name) LIKE ?", "%#{name.strip.downcase}%")
   }
   scope :by_middle_name, lambda { |name|
-    where("LOWER(#{table_name}.middle_name) LIKE ?", "%#{name.strip.downcase}%")
+    where("LOWER(#{table_name}.middle_name) LIKE ?", "'%#{name.strip.downcase}%'")
   }
   scope :by_last_name, lambda { |name|
     where("LOWER(#{table_name}.last_name) LIKE ?", "%#{name.strip.downcase}%")
