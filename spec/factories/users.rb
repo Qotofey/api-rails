@@ -29,7 +29,8 @@
 #  index_users_on_updated_by_user_id    (updated_by_user_id)
 #
 FactoryBot.define do
-  factory :user, aliases: %i[created_by_user updated_by_user deleted_by_user confirmed_by_user] do
+  factory :user, class: 'User',
+                 aliases: %i[created_by_user updated_by_user deleted_by_user confirmed_by_user] do
     first_name { Faker::Name.first_name }
     last_name { Faker::Name.last_name }
     middle_name { Faker::Name.middle_name }
@@ -45,6 +46,10 @@ FactoryBot.define do
     updated_by_user { nil }
     deleted_by_user { nil }
     confirmed_by_user { nil }
+
+    trait :with_phone do
+      phone { Faker::Base.numerify('791########') }
+    end
 
     trait :deleted do
       deleted_at { Date.current }

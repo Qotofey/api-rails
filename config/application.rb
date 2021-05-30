@@ -28,5 +28,9 @@ module ApiRails
     # config.eager_load_paths << Rails.root.join("extras")
 
     config.api_only = true
+
+    config.autoload_paths << Rails.root.join('lib')
+    config.autoload_paths << Rails.root.join('app', 'validators')
+    config.autoload_paths << Rails.root.join('app', 'services')
   end
 end

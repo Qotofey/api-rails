@@ -102,7 +102,7 @@ RSpec.describe '/v1/users', type: :request do
     end
 
     context 'with invalid parameters' do
-      let(:user) { create(:user) }
+      let!(:user) { create(:user) }
 
       it 'renders a JSON response with errors for the user' do
         patch v1_user_url(user),
