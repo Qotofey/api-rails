@@ -1,6 +1,6 @@
 class PhoneValidator < ActiveModel::EachValidator
   def validate_each(record, attribute, value)
-    record.errors[attribute] << :bad_format if self.class.valid?(value)
+    record.errors.add(attribute, :bad_format) if self.class.valid?(value)
   end
 
   class << self

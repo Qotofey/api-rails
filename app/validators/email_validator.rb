@@ -1,7 +1,7 @@
 class EmailValidator < ActiveModel::EachValidator
   def validate_each(record, attribute, value)
     result = value =~ /\A[a-z._-]+@[a-z._-]{3,}\z/i
-    record.errors[attribute] << :bad_format if result.nil?
+    record.errors.add(attribute, :bad_format) if result.nil?
   end
 
   class << self
