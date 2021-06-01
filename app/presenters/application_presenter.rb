@@ -27,6 +27,8 @@ class ApplicationPresenter
 
   def scoped_by_boolean_param(column_name); end
 
+  def attribute_filter(attr); end
+
   def pagination
     @collection = collection.paginate(pagination_params)
   end

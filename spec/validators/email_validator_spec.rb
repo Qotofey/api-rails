@@ -1,4 +1,4 @@
 require 'rails_helper'
 
-RSpec.describe EmailValidator, type: :validator do
+RSpec.describe EmailValidator do
 end
