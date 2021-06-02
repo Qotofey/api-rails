@@ -31,6 +31,11 @@ end
 
 group :development do
   gem 'annotate'
+  gem 'capistrano'
+  gem 'capistrano3-puma'
+  gem 'capistrano-bundler'
+  gem 'capistrano-rails'
+  gem 'capistrano-rbenv'
   gem 'listen', '~> 3.3'
   gem 'spring'
 end
