@@ -1,4 +1,4 @@
-FROM ruby:2.5.1
+FROM ruby:2.7.3
 
 WORKDIR /api-rails
 COPY . /api-rails
