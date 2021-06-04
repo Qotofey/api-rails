@@ -17,7 +17,7 @@ RSpec.describe '/v1/users', type: :request do
   # User. As you add validations to User, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) { attributes_for(:user) }
-  let(:invalid_attributes) { { login: nil } }
+  let(:invalid_attributes) { { promo: nil } }
   # This should return the minimal set of values that should be in the headers
   # in order to pass any filters (e.g. authentication) defined in
   # UsersController, or in your router and rack

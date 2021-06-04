@@ -44,7 +44,7 @@ class V1::UsersController < ApplicationController
   end
 
   def allowed_params
-    %i[login first_name last_name middle_name email phone birth_date gender confirmed deleted
+    %i[promo first_name last_name middle_name email phone birth_date gender confirmed deleted
        password password_confirmation]
   end
 end

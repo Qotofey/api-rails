@@ -18,7 +18,7 @@ class Users::IndexPresenter < ApplicationPresenter
 
   def filtering_collection
     scoped_by_param(:id)
-    scoped_by_param(:login)
+    scoped_by_param(:promo)
     scoped_by_param(:email)
     scoped_by_param(:phone)
     scoped_by_param(:gender)

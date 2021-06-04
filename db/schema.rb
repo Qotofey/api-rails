@@ -13,7 +13,7 @@
 ActiveRecord::Schema.define(version: 2021_05_11_113943) do
 
   create_table "users", charset: "utf8", force: :cascade do |t|
-    t.string "login"
+    t.string "promo"
     t.string "first_name"
     t.string "last_name"
     t.string "middle_name"

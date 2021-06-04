@@ -10,7 +10,7 @@
 #  first_name           :string(255)
 #  gender               :integer
 #  last_name            :string(255)
-#  login                :string(255)
+#  promo                :string(255)
 #  middle_name          :string(255)
 #  password_digest      :string(255)
 #  phone                :string(255)
@@ -41,7 +41,7 @@ class User < ApplicationRecord
   validates :first_name, presence: true, length: { maximum: 255 }
   validates :last_name, presence: true, length: { maximum: 255 }
   validates :middle_name, allow_blank: true, length: { maximum: 255 }
-  validates :login, presence: true, uniqueness: { case_sensitive: false }, length: { maximum: 16 }
+  validates :promo, presence: true, uniqueness: { case_sensitive: false }, length: { maximum: 16 }
   validates :email, presence: true, uniqueness: { case_sensitive: false }, length: { maximum: 255 }
   validates :phone, uniqueness: true, allow_blank: true, length: { is: 11 }
 
@@ -64,8 +64,8 @@ class User < ApplicationRecord
 
   scope :by_gender, ->(gender) { where(gender: gender) }
 
-  scope :by_login, lambda { |login|
-    where("LOWER(#{table_name}.login) LIKE ?", "%#{login.strip.downcase}%")
+  scope :by_promo, lambda { |promo|
+    where("LOWER(#{table_name}.promo) LIKE ?", "%#{promo.strip.downcase}%")
   }
   scope :by_phone, lambda { |phone|
     where("#{table_name}.phone LIKE ?", "%#{phone.gsub(/\s/, '').sub(/(^+)8/, '7').gsub(/\D/, '')}%")
@@ -111,7 +111,7 @@ class User < ApplicationRecord
   private
 
   def identifiers_preprocess
-    self.login = login&.strip&.downcase
+    self.promo = promo&.strip&.downcase
     self.email = email&.strip&.downcase
     self.phone = phone&.gsub(/\D/, '')
   end

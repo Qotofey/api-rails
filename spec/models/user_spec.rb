@@ -10,7 +10,7 @@
 #  first_name           :string(255)
 #  gender               :integer
 #  last_name            :string(255)
-#  login                :string(255)
+#  promo                :string(255)
 #  middle_name          :string(255)
 #  password_digest      :string(255)
 #  phone                :string(255)
@@ -41,8 +41,8 @@ RSpec.describe User, type: :model do
       expect(user).to be_valid
     end
 
-    it 'login invalid' do
-      user = build(:user, login: '')
+    it 'promo invalid' do
+      user = build(:user, promo: '')
       expect(user).not_to be_valid
     end
 

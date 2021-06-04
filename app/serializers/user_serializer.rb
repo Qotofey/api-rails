@@ -10,7 +10,7 @@
 #  first_name           :string(255)
 #  gender               :integer
 #  last_name            :string(255)
-#  login                :string(255)
+#  promo                :string(255)
 #  middle_name          :string(255)
 #  password_digest      :string(255)
 #  phone                :string(255)
@@ -29,5 +29,5 @@
 #  index_users_on_updated_by_user_id    (updated_by_user_id)
 #
 class UserSerializer < ActiveModel::Serializer
-  attributes(%i[id login first_name middle_name last_name])
+  attributes(%i[id promo first_name middle_name last_name])
 end

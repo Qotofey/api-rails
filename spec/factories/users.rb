@@ -10,7 +10,7 @@
 #  first_name           :string(255)
 #  gender               :integer
 #  last_name            :string(255)
-#  login                :string(255)
+#  promo                :string(255)
 #  middle_name          :string(255)
 #  password_digest      :string(255)
 #  phone                :string(255)
@@ -34,7 +34,7 @@ FactoryBot.define do
     first_name { Faker::Name.first_name }
     last_name { Faker::Name.last_name }
     middle_name { Faker::Name.middle_name }
-    login { Faker::Internet.unique.username(separators: %w[]) }
+    promo { Faker::Internet.unique.username(separators: %w[]) }
     email { Faker::Internet.unique.safe_email }
     phone { nil }
     password_digest { 'Password123Z' }
