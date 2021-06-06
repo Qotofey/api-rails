@@ -13,12 +13,12 @@
 ActiveRecord::Schema.define(version: 2021_05_11_113943) do
 
   create_table "users", charset: "utf8", force: :cascade do |t|
-    t.string "promo"
     t.string "first_name"
     t.string "last_name"
     t.string "middle_name"
     t.string "email"
     t.string "phone"
+    t.string "promo"
     t.string "password_digest"
     t.date "birth_date"
     t.integer "gender"
@@ -33,6 +33,9 @@ ActiveRecord::Schema.define(version: 2021_05_11_113943) do
     t.index ["confirmed_by_user_id"], name: "index_users_on_confirmed_by_user_id"
     t.index ["created_by_user_id"], name: "index_users_on_created_by_user_id"
     t.index ["deleted_by_user_id"], name: "index_users_on_deleted_by_user_id"
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["phone"], name: "index_users_on_phone", unique: true
+    t.index ["promo"], name: "index_users_on_promo", unique: true
     t.index ["updated_by_user_id"], name: "index_users_on_updated_by_user_id"
   end
 
