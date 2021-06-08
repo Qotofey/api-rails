@@ -5,7 +5,7 @@ class EmailValidator < ActiveModel::EachValidator
   end
 
   class << self
-    def valid_email?(email)
+    def valid?(email)
       name, domain = email.split('@')
 
       return false if valid_name?(name)
