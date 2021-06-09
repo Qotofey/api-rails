@@ -42,9 +42,7 @@ class ApplicationRecord < ActiveRecord::Base
     save(validate: false)
   end
 
-  def current_user_id
-    1
-  end
+  private
 
   def set_initiators
     return unless new_record?
@@ -55,6 +53,24 @@ class ApplicationRecord < ActiveRecord::Base
 
   def check_update
     self.updated_by_user_id ||= current_user_id if respond_to?(:updated_by_user_id)
+  end
+
+  def current_user_id
+    nil
+  end
+
+  def current_user
+    User.new
+  end
+
+  class << self
+    def active_user=(user)
+      Thread.current[:active_user] = user
+    end
+
+    def active_user
+      Thread.current[:active_user] || User.new
+    end
   end
 
   # class << self

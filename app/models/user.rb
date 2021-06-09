@@ -50,6 +50,8 @@ class User < ApplicationRecord
 
   before_save :identifiers_preprocess, :names_preprocess, :check_confirmation, :check_deletion
 
+  scope :available, -> { UserPolicy::Scope.new(current_user, self) }
+
   scope :by_confirmed_by_user_id, ->(user_id) { where(confirmed_by_user_id: user_id) }
 
   scope :confirmed, -> { where.not(confirmed_at: nil) }
@@ -87,7 +89,6 @@ class User < ApplicationRecord
   }
 
   scope :live, -> { confirmed.not_deleted }
-  scope :available, -> { all }
 
   def confirm
     self.confirmed_at = DateTime.now
