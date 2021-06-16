@@ -1,5 +1,6 @@
 class AuthByEmailValidator
   attr_accessor :email, :password
+
   include ActiveModel::Model
 
   validates :email, email: true, presence: true
