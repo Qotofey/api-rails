@@ -12,21 +12,21 @@ set :stage, :production
 set :rails_env, :production
 set :branch, 'main'
 
-# For puma
-# set :user, 'deploy'
-# set :puma_threads, [4, 16]
-# set :puma_workers, 0
-# set :pty, true
-# set :use_sudo, false
-# set :deploy_via, :remote_cache
-# set :deploy_to, '/var/www/vhosts/api-rails'
-# set :puma_bind, 'unix:///var/www/vhosts/api-rails/shared/tmp/sockets/puma.sock'
-# set :puma_state, '/var/www/vhosts/api-rails/shared/tmp/pids/puma.state'
-# set :puma_pid, '/var/www/vhosts/api-rails/shared/tmp/pids/puma.pid'
-# set :ssh_options, { forward_agent: true, user: fetch(:user), keys: %w(~/.ssh/id_rsa.pub) }
-# set :puma_preload_app, true
-# set :puma_worker_timeout, nil
-# set :puma_init_active_record, true
+#For puma
+set :user, 'deploy'
+set :puma_threads, [4, 16]
+set :puma_workers, 0
+set :pty, true
+set :use_sudo, true
+set :deploy_via, :remote_cache
+set :deploy_to, '/var/www/vhosts/api-rails'
+set :puma_bind, 'unix:///var/www/vhosts/api-rails/shared/tmp/sockets/puma.sock'
+set :puma_state, '/var/www/vhosts/api-rails/shared/tmp/pids/puma.state'
+set :puma_pid, '/var/www/vhosts/api-rails/shared/tmp/pids/puma.pid'
+set :ssh_options, { forward_agent: true, user: fetch(:user), keys: %w(~/.ssh/id_rsa.pub) }
+set :puma_preload_app, true
+set :puma_worker_timeout, nil
+set :puma_init_active_record, true
 
 # role-based syntax
 # ==================
