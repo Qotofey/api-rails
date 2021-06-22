@@ -41,6 +41,7 @@ require 'capistrano/rails/migrations'
 require 'capistrano/puma'
 #
 install_plugin Capistrano::Puma
+install_plugin Capistrano::Puma::Daemon
 
 set :rbenv_type, :user
 set :rbenv_ruby, '2.7.3'
