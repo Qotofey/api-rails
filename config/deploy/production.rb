@@ -12,18 +12,16 @@ set :stage, :production
 set :rails_env, :production
 set :branch, 'main'
 
-#For puma
 set :user, 'deploy'
-set :puma_threads, [4, 16]
-set :puma_workers, 0
-set :pty, true
 set :use_sudo, false
 set :deploy_via, :remote_cache
-set :deploy_to, '/var/www/vhosts/api-rails'
+
+#For puma
+set :puma_threads, [4, 16]
+set :puma_workers, 0
 set :puma_bind, 'unix:///var/www/vhosts/api-rails/shared/tmp/sockets/puma.sock'
 set :puma_state, '/var/www/vhosts/api-rails/shared/tmp/pids/puma.state'
 set :puma_pid, '/var/www/vhosts/api-rails/shared/tmp/pids/puma.pid'
-set :ssh_options, { forward_agent: true, user: fetch(:user), keys: %w(~/.ssh/id_rsa.pub) }
 set :puma_preload_app, true
 set :puma_worker_timeout, nil
 set :puma_init_active_record, true
@@ -105,12 +103,12 @@ end
 #
 # Global options
 # --------------
-#  set :ssh_options, {
-#    keys: %w(/home/user_name/.ssh/id_rsa),
-#    forward_agent: false,
-#    auth_methods: %w(password)
-#  }
-#
+ set :ssh_options, {
+   keys: %w(~/.ssh/id_rsa.pub),
+   forward_agent: true,
+   user: fetch(:user)
+ }
+
 # The server-based syntax can be used to override options:
 # ------------------------------------
 # server "example.com",
