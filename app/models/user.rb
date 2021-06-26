@@ -50,7 +50,8 @@ class User < ApplicationRecord
 
   before_save :identifiers_preprocess, :names_preprocess, :check_confirmation, :check_deletion
 
-  scope :available, -> { UserPolicy::Scope.new(current_user, self) }
+  # scope :available, -> { UserPolicy::Scope.new(current_user, self) }
+  scope :available, -> { all }
 
   scope :by_confirmed_by_user_id, ->(user_id) { where(confirmed_by_user_id: user_id) }
 
