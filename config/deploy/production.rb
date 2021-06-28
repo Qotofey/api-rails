@@ -12,7 +12,7 @@ set :stage, :production
 set :rails_env, :production
 set :branch, 'main'
 
-set :user, 'root'
+set :user, 'deploy'
 set :use_sudo, false
 set :deploy_via, :remote_cache
 set :rbenv_custom_path, "/home/deploy/.rbenv"
@@ -27,54 +27,55 @@ set :puma_preload_app, true
 set :puma_worker_timeout, nil
 set :puma_init_active_record, true
 
-set :puma_user, 'deploy'
+set :puma_user, fetch(:user)
+set :puma_systemctl_user, fetch(:user)
 set :puma_env, fetch(:rack_env, fetch(:rails_env, 'production'))
 set :puma_restart_command, 'bundle exec puma'
 
-namespace :puma do
-  desc 'Create Directories for Puma Pids and Socket'
-  task :make_dirs do
-    on roles(:app) do
-      execute "mkdir /var/www/vhosts/api-rails/shared/tmp/sockets -p"
-      execute "mkdir /var/www/vhosts/api-rails/shared/tmp/pids -p"
-    end
-  end
+# namespace :puma do
+#   desc 'Create Directories for Puma Pids and Socket'
+#   task :make_dirs do
+#     on roles(:app) do
+#       execute "mkdir /var/www/vhosts/api-rails/shared/tmp/sockets -p"
+#       execute "mkdir /var/www/vhosts/api-rails/shared/tmp/pids -p"
+#     end
+#   end
+#
+#   before 'deploy:starting', 'puma:make_dirs'
+# end
 
-  before 'deploy:starting', 'puma:make_dirs'
-end
+# namespace :deploy do
+#   desc "Make sure local git is in sync with remote."
+#   task :check_revision do
+#     on roles(:app) do
+#
+#       # Update this to your branch name: master, main, etc. Here it's main
+#       unless `git rev-parse HEAD` == `git rev-parse origin/main`
+#         puts "WARNING: HEAD is not the same as origin/main"
+#         puts "Run `git push` to sync changes."
+#         exit
+#       end
+#     end
+#   end
 
-namespace :deploy do
-  desc "Make sure local git is in sync with remote."
-  task :check_revision do
-    on roles(:app) do
+  # desc 'Initial Deploy'
+  # task :initial do
+  #   on roles(:app) do
+  #     before 'deploy:restart', 'puma:start'
+  #     invoke 'deploy'
+  #   end
+  # end
+  #
+  # desc 'Restart application'
+  # task :restart do
+  #   on roles(:app), in: :sequence, wait: 5 do
+  #     invoke 'puma:restart'
+  #   end
+  # end
 
-      # Update this to your branch name: master, main, etc. Here it's main
-      unless `git rev-parse HEAD` == `git rev-parse origin/main`
-        puts "WARNING: HEAD is not the same as origin/main"
-        puts "Run `git push` to sync changes."
-        exit
-      end
-    end
-  end
-
-  desc 'Initial Deploy'
-  task :initial do
-    on roles(:app) do
-      before 'deploy:restart', 'puma:start'
-      invoke 'deploy'
-    end
-  end
-
-  desc 'Restart application'
-  task :restart do
-    on roles(:app), in: :sequence, wait: 5 do
-      invoke 'puma:restart'
-    end
-  end
-
-  before :starting, :check_revision
-  after :finishing, :cleanup
-end
+#   before :starting, :check_revision
+#   after :finishing, :cleanup
+# end
 
 # role-based syntax
 # ==================
