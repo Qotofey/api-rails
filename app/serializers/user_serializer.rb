@@ -31,6 +31,6 @@
 #  index_users_on_promo                 (promo) UNIQUE
 #  index_users_on_updated_by_user_id    (updated_by_user_id)
 #
-class UserSerializer < ActiveModel::Serializer
+class UserSerializer < ApplicationSerializer
   attributes(%i[id promo first_name middle_name last_name])
 end
