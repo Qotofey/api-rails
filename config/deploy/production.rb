@@ -6,7 +6,7 @@
 # server "example.com", user: "deploy", roles: %w{app db web}, my_property: :my_value
 # server "example.com", user: "deploy", roles: %w{app web}, other_property: :other_value
 # server "db.example.com", user: "deploy", roles: %w{db}
-server 'api.qotofey.store', roles: %w[web app db], primary: true
+server 'api.qotofey.ru', roles: %w[web app db], primary: true
 
 set :stage, :production
 set :rails_env, :production
