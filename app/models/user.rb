@@ -113,6 +113,14 @@ class User < ApplicationRecord
     @format_phone ||= "+#{phone}"
   end
 
+  def confirmed?
+    !!confirmed_at
+  end
+
+  def deleted?
+    !!deleted_at
+  end
+
   private
 
   def identifiers_preprocess
