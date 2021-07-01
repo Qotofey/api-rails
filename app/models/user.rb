@@ -32,14 +32,13 @@
 #  index_users_on_updated_by_user_id    (updated_by_user_id)
 #
 class User < ApplicationRecord
-  attr_writer :confirmed, :deleted
+  include Deletable
+  include Confirmable
 
   enum gender: {
     male: 0,
     female: 1
   }
-
-  belongs_to :confirmed_by_user, class_name: 'User', optional: true
 
   validates :first_name, presence: true, length: { maximum: 255 }
   validates :last_name, presence: true, length: { maximum: 255 }
@@ -48,19 +47,10 @@ class User < ApplicationRecord
   validates :email, presence: true, uniqueness: { case_sensitive: false }, length: { maximum: 255 }
   validates :phone, uniqueness: true, allow_blank: true, length: { is: 11 }
 
-  before_save :identifiers_preprocess, :names_preprocess, :check_confirmation, :check_deletion
+  before_save :identifiers_preprocess, :names_preprocess
 
   # scope :available, -> { UserPolicy::Scope.new(current_user, self) }
   scope :available, -> { all }
-
-  scope :by_confirmed_by_user_id, ->(user_id) { where(confirmed_by_user_id: user_id) }
-
-  scope :confirmed, -> { where.not(confirmed_at: nil) }
-  scope :not_confirmed, -> { where(confirmed_at: nil) }
-  scope :confirmed_after, ->(time) { where('confirmed_at > ?', time) }
-  scope :confirmed_before, ->(time) { where('confirmed_at < ?', time) }
-  scope :confirmed_from, ->(time) { where('confirmed_at >= ?', time) }
-  scope :confirmed_to, ->(time) { where('confirmed_at <= ?', time) }
 
   scope :by_birth_date, ->(date) { where(birth_date: date) }
   scope :birth_date_after, ->(date) { where('birth_date > ?', date) }
@@ -91,16 +81,6 @@ class User < ApplicationRecord
 
   scope :live, -> { confirmed.not_deleted }
 
-  def confirm
-    self.confirmed_at = DateTime.now
-    save(validate: false)
-  end
-
-  def unconfirm
-    self.confirmed_at = nil
-    save(validate: false)
-  end
-
   def full_name
     @full_name ||= [first_name, middle_name, last_name].select(&:present?).join(' ')
   end
@@ -111,14 +91,6 @@ class User < ApplicationRecord
 
   def format_phone
     @format_phone ||= "+#{phone}"
-  end
-
-  def confirmed?
-    !!confirmed_at
-  end
-
-  def deleted?
-    !!deleted_at
   end
 
   private
@@ -133,19 +105,5 @@ class User < ApplicationRecord
     self.first_name = first_name.strip.capitalize
     self.middle_name = middle_name&.strip&.capitalize
     self.last_name = last_name.strip.capitalize
-  end
-
-  def check_confirmation
-    return unless @confirmed.in? [false, true]
-
-    self.confirmed_by_user_id = @confirmed ? current_user_id : nil
-    self.confirmed_at = @confirmed ? DateTime.now : nil
-  end
-
-  def check_deletion
-    return unless @deleted.in? [false, true]
-
-    self.deleted_by_user_id = @deleted ? current_user_id : nil
-    self.deleted_at = @deleted ? DateTime.now : nil
   end
 end

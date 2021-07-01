@@ -51,7 +51,7 @@ FactoryBot.define do
     confirmed_by_user { nil }
 
     trait :with_phone do
-      phone { Faker::Base.numerify('791########') }
+      phone { Faker::Base.unique.numerify('791########') }
     end
 
     trait :deleted do

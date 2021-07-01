@@ -3,7 +3,6 @@ class ApplicationRecord < ActiveRecord::Base
 
   belongs_to :created_by_user, class_name: 'User', optional: true
   belongs_to :updated_by_user, class_name: 'User', optional: true
-  belongs_to :deleted_by_user, class_name: 'User', optional: true
 
   scope :by_id, ->(ids) { where(id: ids) }
   scope :ordered, -> { order(created_at: :desc) }
@@ -22,25 +21,8 @@ class ApplicationRecord < ActiveRecord::Base
   scope :updated_from, ->(time) { where('updated_at >= ?', time) }
   scope :updated_to, ->(time) { where('updated_at <= ?', time) }
 
-  scope :deleted, -> { where.not(deleted_at: nil) }
-  scope :not_deleted, -> { where(deleted_at: nil) }
-  scope :deleted_after, ->(time) { where('deleted_at > ?', time) }
-  scope :deleted_before, ->(time) { where('deleted_at < ?', time) }
-  scope :deleted_from, ->(time) { where('deleted_at >= ?', time) }
-  scope :deleted_to, ->(time) { where('deleted_at <= ?', time) }
-
   after_initialize :set_initiators
-  before_update :check_update
-
-  def soft_destroy
-    self.deleted_at = DateTime.now
-    save(validate: false)
-  end
-
-  def soft_restore
-    self.deleted_at = nil
-    save(validate: false)
-  end
+  before_save :check_update
 
   private
 
