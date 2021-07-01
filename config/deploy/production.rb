@@ -15,7 +15,7 @@ set :branch, 'main'
 set :user, 'deploy'
 set :use_sudo, false
 set :deploy_via, :remote_cache
-set :rbenv_custom_path, "/home/deploy/.rbenv"
+set :rbenv_custom_path, '/home/deploy/.rbenv'
 
 #For puma
 set :puma_threads, [4, 16]
