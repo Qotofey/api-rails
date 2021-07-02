@@ -9,7 +9,6 @@ class ApplicationRecord < ActiveRecord::Base
   scope :reverse_ordered, -> { order(created_at: :asc) }
   scope :by_created_by_user_id, ->(user_id) { where(created_by_user_id: user_id) }
   scope :by_updated_by_user_id, ->(user_id) { where(updated_by_user_id: user_id) }
-  scope :by_deleted_by_user_id, ->(user_id) { where(updated_by_user_id: user_id) }
 
   scope :created_after, ->(time) { where('created_at > ?', time) }
   scope :created_before, ->(time) { where('created_at < ?', time) }

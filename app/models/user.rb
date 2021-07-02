@@ -34,6 +34,7 @@
 class User < ApplicationRecord
   include Deletable
   include Confirmable
+  include Authenticatable
 
   enum gender: {
     male: 0,

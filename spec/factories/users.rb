@@ -40,7 +40,7 @@ FactoryBot.define do
     promo { Faker::Internet.unique.username(separators: %w[]) }
     email { Faker::Internet.unique.safe_email }
     phone { nil }
-    password_digest { 'Password123Z' }
+    password { 'Password123Z' }
     birth_date { Faker::Date.birthday(min_age: 18, max_age: 65) }
     gender { Faker::Gender.binary_type.downcase }
     confirmed_at { Date.current }
