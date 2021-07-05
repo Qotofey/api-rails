@@ -19,8 +19,8 @@ Bundler.require(*Rails.groups)
 
 module ApiRails
   class Application < Rails::Application
-    I18n.config.available_locales = %i[en ru]
-    config.i18n.default_locale = :ru
+    I18n.config.available_locales = %i[code en ru]
+    config.i18n.default_locale = :code
 
     config.load_defaults 6.1
 
