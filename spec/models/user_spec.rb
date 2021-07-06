@@ -34,6 +34,8 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
+  it_behaves_like 'deletable'
+
   context 'when signed up' do
     subject(:registered_user) { create(:user, :unconfirmed) }
 
@@ -79,51 +81,4 @@ RSpec.describe User, type: :model do
       it 'should be include a space'
     end
   end
-
-  # describe 'when some attribute is blank' do
-  #   it 'phone valid' do
-  #     user = build(:user, phone: '')
-  #     expect(user).to be_valid
-  #   end
-  #
-  #   it 'promo invalid' do
-  #     user = build(:user, promo: '')
-  #     expect(user).not_to be_valid
-  #   end
-  #
-  #   it 'first_name invalid' do
-  #     user = build(:user, first_name: '')
-  #     expect(user).not_to be_valid
-  #   end
-  #
-  #   it 'middle_name valid' do
-  #     user = build(:user, middle_name: '')
-  #     expect(user).to be_valid
-  #   end
-  #
-  #   it 'last_name invalid' do
-  #     user = build(:user, last_name: '')
-  #     expect(user).not_to be_valid
-  #   end
-  #
-  #   it 'created_by_user_id valid' do
-  #     user = build(:user, created_by_user_id: nil)
-  #     expect(user).to be_valid
-  #   end
-  #
-  #   it 'updated_by_user_id valid' do
-  #     user = build(:user, updated_by_user_id: nil)
-  #     expect(user).to be_valid
-  #   end
-  #
-  #   it 'deleted_by_user_id valid' do
-  #     user = build(:user, deleted_by_user_id: nil)
-  #     expect(user).to be_valid
-  #   end
-  #
-  #   it 'deleted_by_user_id valid' do
-  #     user = build(:user, confirmed_by_user_id: nil)
-  #     expect(user).to be_valid
-  #   end
-  # end
 end
