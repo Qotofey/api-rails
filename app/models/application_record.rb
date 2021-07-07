@@ -37,11 +37,7 @@ class ApplicationRecord < ActiveRecord::Base
   end
 
   def current_user_id
-    nil
-  end
-
-  def current_user
-    User.new
+    self.class.current_user.id
   end
 
   class << self
@@ -51,6 +47,10 @@ class ApplicationRecord < ActiveRecord::Base
 
     def active_user
       Thread.current[:active_user] || User.new
+    end
+
+    def current_user
+      active_user
     end
   end
 
