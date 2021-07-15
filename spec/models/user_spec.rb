@@ -8,7 +8,7 @@
 #  deleted_at           :datetime
 #  email                :string(255)
 #  first_name           :string(255)
-#  gender               :integer
+#  gender               :string(255)
 #  last_name            :string(255)
 #  middle_name          :string(255)
 #  password_digest      :string(255)

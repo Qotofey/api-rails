@@ -8,7 +8,7 @@
 #  deleted_at           :datetime
 #  email                :string(255)
 #  first_name           :string(255)
-#  gender               :integer
+#  gender               :string(255)
 #  last_name            :string(255)
 #  middle_name          :string(255)
 #  password_digest      :string(255)
@@ -37,8 +37,8 @@ class User < ApplicationRecord
   include Authenticatable
 
   enum gender: {
-    male: 0,
-    female: 1
+    male: 'male',
+    female: 'female'
   }
 
   validates :first_name, presence: true, length: { maximum: 255 }

@@ -8,8 +8,8 @@ class CreateUsers < ActiveRecord::Migration[6.1]
       t.string :phone
       t.string :promo
       t.string :password_digest
+      t.string :gender
       t.date :birth_date
-      t.integer :gender
       t.datetime :confirmed_at
       t.datetime :deleted_at
       t.references :created_by_user, references: :users
