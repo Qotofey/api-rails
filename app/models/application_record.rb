@@ -20,42 +20,46 @@ class ApplicationRecord < ActiveRecord::Base
   scope :updated_from, ->(time) { where('updated_at >= ?', time) }
   scope :updated_to, ->(time) { where('updated_at <= ?', time) }
 
-  after_initialize :set_initiators
-  before_save :check_update
+  before_create :ensure_initiators_inclusion
+  before_update :ensure_updater_inclusion
 
   class << self
-    def active_user=(user)
-      Thread.current[:active_user] = user
-    end
-
-    def active_user
-      Thread.current[:active_user] || User.new
+    def current_user=(user)
+      Thread.current[:current_user] = user
     end
 
     def current_user
-      active_user
+      Thread.current[:current_user] || User.new
+    end
+
+    def access_token=(token)
+      Thread.current[:access_token] = token
+    end
+
+    def access_token
+      Thread.current[:access_token]
     end
   end
 
   private
 
-  def set_initiators
-    return unless new_record?
-
-    self.created_by_user_id ||= current_user&.id if respond_to?(:created_by_user_id)
-    self.updated_by_user_id ||= current_user&.id if respond_to?(:updated_by_user_id)
-  end
-
-  def check_update
-    self.updated_by_user_id ||= current_user&.id if respond_to?(:updated_by_user_id)
-  end
-
   def current_user
-    self.class.active_user
+    self.class.current_user
   end
 
   def current_user_id
-    self.class.active_user.id
+    self.class.current_user.id
+  end
+
+  def ensure_initiators_inclusion
+    return unless new_record?
+
+    self.created_by_user_id ||= current_user_id if respond_to?(:created_by_user_id)
+    self.updated_by_user_id ||= current_user_id if respond_to?(:updated_by_user_id)
+  end
+
+  def ensure_updater_inclusion
+    self.updated_by_user_id ||= current_user_id if respond_to?(:updated_by_user_id)
   end
 
   # class << self

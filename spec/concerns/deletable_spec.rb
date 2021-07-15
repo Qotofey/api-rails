@@ -9,7 +9,6 @@ shared_examples_for 'deletable' do
     end
 
     context 'when already deleted' do
-
     end
   end
 
