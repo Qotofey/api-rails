@@ -23,23 +23,6 @@ class ApplicationRecord < ActiveRecord::Base
   after_initialize :set_initiators
   before_save :check_update
 
-  private
-
-  def set_initiators
-    return unless new_record?
-
-    self.created_by_user_id ||= current_user_id if respond_to?(:created_by_user_id)
-    self.updated_by_user_id ||= current_user_id if respond_to?(:updated_by_user_id)
-  end
-
-  def check_update
-    self.updated_by_user_id ||= current_user_id if respond_to?(:updated_by_user_id)
-  end
-
-  def current_user_id
-    self.class.current_user.id
-  end
-
   class << self
     def active_user=(user)
       Thread.current[:active_user] = user
@@ -52,6 +35,27 @@ class ApplicationRecord < ActiveRecord::Base
     def current_user
       active_user
     end
+  end
+
+  private
+
+  def set_initiators
+    return unless new_record?
+
+    self.created_by_user_id ||= current_user&.id if respond_to?(:created_by_user_id)
+    self.updated_by_user_id ||= current_user&.id if respond_to?(:updated_by_user_id)
+  end
+
+  def check_update
+    self.updated_by_user_id ||= current_user&.id if respond_to?(:updated_by_user_id)
+  end
+
+  def current_user
+    self.class.active_user
+  end
+
+  def current_user_id
+    self.class.active_user.id
   end
 
   # class << self
