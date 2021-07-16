@@ -39,7 +39,7 @@ FactoryBot.define do
     middle_name { Faker::Name.middle_name }
     promo { Faker::Internet.unique.username(separators: %w[]) }
     email { Faker::Internet.unique.safe_email }
-    phone { nil }
+    phone { Faker::Base.unique.numerify('791########') }
     password { 'Password123Z' }
     birth_date { Faker::Date.birthday(min_age: 18, max_age: 65) }
     gender { Faker::Gender.binary_type.downcase }
@@ -50,8 +50,11 @@ FactoryBot.define do
     deleted_by_user { nil }
     confirmed_by_user { nil }
 
-    trait :with_phone do
-      phone { Faker::Base.unique.numerify('791########') }
+    trait :ascetic do
+      middle_name { nil }
+      birth_date { nil }
+      gender { nil }
+      phone { nil }
     end
 
     trait :deleted do

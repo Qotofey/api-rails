@@ -73,6 +73,8 @@ RSpec.describe User, type: :model do
   end
 
   describe '#full_name' do
+    subject(:user) { create(:user) }
+
     context 'with middle_name' do
       it 'should be include two spaces'
     end

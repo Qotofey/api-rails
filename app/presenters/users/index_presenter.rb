@@ -1,6 +1,6 @@
 class Users::IndexPresenter < ApplicationPresenter
   def users
-    @collection = User.available.ordered
+    @collection = ::User.available.ordered
     apply_filters
     apply_order
 

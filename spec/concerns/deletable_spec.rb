@@ -1,14 +1,15 @@
 require 'spec_helper'
 
 shared_examples_for 'deletable' do
-  subject { described_class }
+  subject { create(described_class.to_s.underscore.to_sym) }
 
   describe '#soft_destroy' do
     context 'when not deleted' do
-      it { expect(subject.soft_destroy).to be_deleted }
-    end
+      before { subject.soft_destroy }
 
-    context 'when already deleted' do
+      it 'is checked as deleted on soft delete' do
+        is_expected.to be_deleted
+      end
     end
   end
 
