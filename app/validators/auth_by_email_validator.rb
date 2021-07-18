@@ -6,7 +6,7 @@ class AuthByEmailValidator
   validates :email, email: true, presence: true
   validates :password, presence: true
 
-  def apply
+  def call
     return false unless valid?
     return false unless valid_email?
     return false unless valid_password?
