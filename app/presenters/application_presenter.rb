@@ -14,7 +14,19 @@ class ApplicationPresenter
 
   def apply_filters; end
 
-  def apply_order; end
+  def apply_order
+    collection_order
+  end
+
+  def collection_order
+    values = params[:order_by].to_s.split(',').map(&:strip)
+    @collection = collection.ordered if values.empty?
+
+    values.each do |value|
+      column, direction = value.split('+')
+      @collection = collection.order(column => direction || :asc)
+    end
+  end
 
   def include_tables; end
 
