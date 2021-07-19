@@ -62,14 +62,14 @@ FactoryBot.define do
       deleted_by_user
     end
 
-    trait :confirmed do
-      confirmed_at { Date.current }
-      confirmed_by_user
-    end
-
     trait :undeleted do
       deleted_at { nil }
       deleted_by_user { nil }
+    end
+
+    trait :confirmed do
+      confirmed_at { Date.current }
+      confirmed_by_user
     end
 
     trait :unconfirmed do

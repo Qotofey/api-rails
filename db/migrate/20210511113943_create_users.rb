@@ -4,9 +4,9 @@ class CreateUsers < ActiveRecord::Migration[6.1]
       t.string :first_name
       t.string :last_name
       t.string :middle_name
-      t.string :email
-      t.string :phone
-      t.string :promo
+      t.string :email, index: { unique: true }
+      t.string :phone, index: { unique: true }
+      t.string :promo, index: { unique: true }
       t.string :password_digest
       t.string :gender
       t.date :birth_date
@@ -19,9 +19,5 @@ class CreateUsers < ActiveRecord::Migration[6.1]
 
       t.timestamps
     end
-
-    add_index :users, :email, unique: true
-    add_index :users, :phone, unique: true
-    add_index :users, :promo, unique: true
   end
 end
