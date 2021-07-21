@@ -35,6 +35,7 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   it_behaves_like 'deletable'
+  it_behaves_like 'confirmable'
 
   context 'when signed up' do
     subject(:registered_user) { create(:user, :unconfirmed) }
