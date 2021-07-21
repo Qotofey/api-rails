@@ -36,13 +36,13 @@ FactoryBot.define do
                  aliases: %i[created_by_user updated_by_user deleted_by_user confirmed_by_user] do
     first_name { Faker::Name.first_name }
     last_name { Faker::Name.last_name }
-    middle_name { Faker::Name.middle_name }
+    middle_name { nil }
     promo { Faker::Internet.unique.username(separators: %w[]) }
     email { Faker::Internet.unique.safe_email }
-    phone { Faker::Base.unique.numerify('791########') }
+    phone { nil }
     password { 'Password123Z' }
-    birth_date { Faker::Date.birthday(min_age: 18, max_age: 65) }
-    gender { Faker::Gender.binary_type.downcase }
+    birth_date { nil }
+    gender { nil }
     confirmed_at { Date.current }
     deleted_at { nil }
     created_by_user { nil }
@@ -50,11 +50,16 @@ FactoryBot.define do
     deleted_by_user { nil }
     confirmed_by_user { nil }
 
-    trait :ascetic do
-      middle_name { nil }
-      birth_date { nil }
-      gender { nil }
-      phone { nil }
+    trait :full do
+      middle_name { Faker::Name.middle_name }
+      birth_date { Faker::Date.birthday(min_age: 18, max_age: 65) }
+      gender { Faker::Gender.binary_type.downcase }
+      phone { Faker::Base.unique.numerify('791########') }
+    end
+
+    trait :created do
+      created_by_user { create(:created_by_user) }
+      updated_by_user { created_by_user }
     end
 
     trait :deleted do
