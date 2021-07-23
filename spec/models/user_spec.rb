@@ -34,8 +34,8 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  it_behaves_like 'deletable'
-  it_behaves_like 'confirmable'
+  # it_behaves_like 'deletable'
+  # it_behaves_like 'confirmable'
 
   context 'when signed up' do
     subject(:registered_user) { create(:user, :unconfirmed) }
@@ -49,39 +49,19 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe '#confirm' do
-    context 'with admin panel' do
-      it 'sets a non-empty confirmed_by_user_id'
-      it 'sets a non-empty confirmed_at'
-    end
-
-    context 'without admin panel' do
-      it 'sets an empty confirmed_by_user_id'
-      it 'sets a non-empty confirmed_at'
-    end
-  end
-
-  describe '#unconfirm' do
-    context 'with admin panel' do
-      it 'sets an empty confirmed_by_user_id'
-      it 'sets an empty confirmed_at'
-    end
-
-    context 'without admin panel' do
-      it 'sets an empty confirmed_by_user_id'
-      it 'sets an empty confirmed_at'
-    end
-  end
-
   describe '#full_name' do
-    subject(:user) { create(:user) }
+    subject(:user) { build(:user, full_name_attrs) }
 
     context 'with middle_name' do
-      it 'should be include two spaces'
+      let!(:full_name_attrs) { { first_name: 'Robert', middle_name: 'Cecil', last_name: 'Martin' } }
+
+      it { expect(user.full_name.count(' ')).to eq(2) }
     end
 
     context 'without middle_name' do
-      it 'should be include a space'
+      let!(:full_name_attrs) { { first_name: 'Robert', middle_name: '', last_name: 'Martin' } }
+
+      it { expect(user.full_name.count(' ')).to eq(1) }
     end
   end
 end

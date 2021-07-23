@@ -9,7 +9,7 @@ RSpec.describe '/v1/users', type: :request do
   end
 
   describe 'GET /index' do
-    let!(:users) { create_list(:user, 5) }
+    let(:users) { create_list(:user, 5) }
 
     it 'renders a successful response' do
       get v1_users_url, headers: valid_headers, as: :json
@@ -68,12 +68,12 @@ RSpec.describe '/v1/users', type: :request do
         { confirmed: false }
       end
 
-      it 'updates the requested user' do
-        patch v1_user_url(user),
-              params: { user: new_attributes }, headers: valid_headers, as: :json
-        user.reload
-        skip('Add assertions for updated state')
-      end
+      # it 'updates the requested user' do
+      #   patch v1_user_url(user),
+      #         params: { user: new_attributes }, headers: valid_headers, as: :json
+      #   user.reload
+      #   skip('Add assertions for updated state')
+      # end
 
       it 'renders a JSON response with the user' do
         patch v1_user_url(user),
@@ -84,7 +84,7 @@ RSpec.describe '/v1/users', type: :request do
     end
 
     context 'with invalid parameters' do
-      let!(:user) { create(:user) }
+      let(:user) { create(:user) }
 
       it 'renders a JSON response with errors for the user' do
         patch v1_user_url(user),

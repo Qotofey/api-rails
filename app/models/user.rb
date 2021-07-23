@@ -41,9 +41,9 @@ class User < ApplicationRecord
     female: 'female'
   }
 
-  validates :first_name, presence: true, length: { maximum: 255 }
-  validates :last_name, presence: true, length: { maximum: 255 }
-  validates :middle_name, allow_blank: true, length: { maximum: 255 }
+  validates :first_name, presence: true, length: { maximum: 255 }, name: true
+  validates :last_name, presence: true, length: { maximum: 255 }, name: true
+  validates :middle_name, allow_blank: true, length: { maximum: 255 }, name: true
   validates :promo, presence: true, uniqueness: { case_sensitive: false }, length: { maximum: 16 }
   validates :email, presence: true, uniqueness: { case_sensitive: false }, length: { maximum: 255 }
   validates :phone, uniqueness: true, allow_blank: true, length: { is: 11 }
