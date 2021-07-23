@@ -3,8 +3,8 @@ require 'spec_helper'
 shared_examples_for 'confirmable' do
   subject { create(described_class.to_s.underscore.to_sym, confirmation_mark) }
 
-  let(:confirmed) { { confirmed_at: Date.current, confirmed_by_user: create(:user) } }
-  let(:unconfirmed) { { confirmed_at: nil, confirmed_by_user: nil } }
+  let!(:confirmed) { { confirmed_at: Date.current, confirmed_by_user: create(:user) } }
+  let!(:unconfirmed) { { confirmed_at: nil, confirmed_by_user: nil } }
 
   describe '#confirm' do
     before { subject.confirm }
