@@ -34,9 +34,6 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  # it_behaves_like 'deletable'
-  # it_behaves_like 'confirmable'
-
   context 'when signed up' do
     subject(:registered_user) { create(:user, :unconfirmed) }
 
@@ -64,4 +61,7 @@ RSpec.describe User, type: :model do
       it { expect(user.full_name.count(' ')).to eq(1) }
     end
   end
+
+  it_behaves_like 'confirmable'
+  it_behaves_like 'deletable'
 end
