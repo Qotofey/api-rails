@@ -27,9 +27,11 @@ gem 'rack-cors'
 group :development, :test do
   gem 'factory_bot_rails'
   gem 'faker'
+  gem 'fasterer'
   gem 'pry-byebug'
   gem 'rspec-rails'
   gem 'rubocop'
+  gem 'rubocop-performance'
 end
 
 group :development do
