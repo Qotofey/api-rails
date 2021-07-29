@@ -39,7 +39,7 @@ RSpec.describe '/v1/users', type: :request do
         post v1_users_url,
              params: { user: valid_attributes }, headers: valid_headers, as: :json
         expect(response).to have_http_status(:created)
-        expect(response.content_type).to match(a_string_including('application/json'))
+        expect(response).to match(a_string_including('application/json'))
       end
     end
 
