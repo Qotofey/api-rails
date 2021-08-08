@@ -12,23 +12,33 @@ class ApplicationPresenter
 
   private
 
-  def apply_filters; end
 
-  def apply_order
-    collection_order
+  def apply_sorting
+    collection_sort
   end
 
-  def collection_order
-    values = params[:order_by].to_s.split(',').map(&:strip)
+  def apply_selecting; end
+
+  def apply_filtering; end
+
+  def collection_sort
+    values = params[:sort].to_s.split(',').map(&:strip)
     @collection = collection.ordered if values.empty?
 
+    direction_values = %w[+ -]
+
     values.each do |value|
-      column, direction = value.split('+')
-      @collection = collection.order(column => direction || :asc)
+      direction = value[0]
+      break unless direction.in? direction_values
+
+      column = value[1..]
+      @collection = collection.order(column => direction == '+' ? :asc : :desc)
     end
   end
 
-  def include_tables; end
+  def include_tables
+    raise NotImplementedError, "Method #{__method__} must be overridden"
+  end
 
   def scoped_by_param(column_name)
     values = params[column_name].to_s.split(',').map(&:strip).map(&:downcase)

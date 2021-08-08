@@ -1,8 +1,8 @@
 class Users::IndexPresenter < ApplicationPresenter
   def users
     @collection = ::User.available
-    apply_filters
-    apply_order
+    apply_filtering
+    apply_sorting
 
     pagination
     collection
@@ -10,7 +10,8 @@ class Users::IndexPresenter < ApplicationPresenter
 
   private
 
-  def apply_filters
+  def apply_filtering
+    super
     filtering_collection
   end
 
