@@ -3,6 +3,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 gem 'active_model_serializers'
 gem 'mysql2', '~> 0.5'
+gem 'oj'
 gem 'puma', '~> 5.0'
 gem 'pundit'
 gem 'rails', '~> 6.1.3', '>= 6.1.3.2'
