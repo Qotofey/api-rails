@@ -12,16 +12,25 @@ class ApplicationPresenter
 
   private
 
-
   def apply_sorting
-    collection_sort
+    base_sortable_collection
+    custom_sortable_collection
   end
 
   def apply_selecting; end
 
-  def apply_filtering; end
+  def apply_filtering
+    base_filterable_collection
+    custom_filterable_collection
+  end
 
-  def collection_sort
+  def custom_filterable_collection; end
+
+  def custom_sortable_collection; end
+
+  def base_filterable_collection; end
+
+  def base_sortable_collection
     values = params[:sort].to_s.split(',').map(&:strip)
     @collection = collection.ordered if values.empty?
 
