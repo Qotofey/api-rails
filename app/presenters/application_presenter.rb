@@ -1,5 +1,5 @@
 class ApplicationPresenter
-  attr_reader :collection, :params
+  attr_reader :collection, :params, :only
 
   DEFAULT_PAGE = 1
   DEFAULT_PER_PAGE = 25
@@ -12,12 +12,18 @@ class ApplicationPresenter
 
   private
 
+  def collection_class
+    raise NotImplementedError, "Method #{__method__} must be overridden"
+  end
+
+  def fetch_only_fields
+    # @only ||= collection_class.column_names & params[:only].to_s.split(',').map(&:strip)
+  end
+
   def apply_sorting
     base_sortable_collection
     custom_sortable_collection
   end
-
-  def apply_selecting; end
 
   def apply_filtering
     base_filterable_collection
@@ -28,7 +34,35 @@ class ApplicationPresenter
 
   def custom_sortable_collection; end
 
-  def base_filterable_collection; end
+
+  # `lt` - less then
+  # `lte` - less than or equal to
+  # `gt` - greater than
+  # `gte` - greater than or equal to
+  # `eq` - equal to
+  # `ot` - other than
+  #
+  # `q` - sql LIKE
+  def base_filterable_collection
+    collection_class.column_names.each do |column_name|
+      next if params[column_name].blank?
+
+      value = params[column_name]['lte']
+      @collection = collection.where("#{column_name} <= #{value}") if value.present?
+      value = params[column_name]['lt']
+      @collection = collection.where("#{column_name} < #{value}") if value.present?
+
+      value = params[column_name]['gte']
+      @collection = collection.where("#{column_name} >= #{value}") if value.present?
+      value = params[column_name]['gt']
+      @collection = collection.where("#{column_name} > #{value}") if value.present?
+
+      values = params[column_name]['eq'].to_s.split(',').map(&:strip)
+      @collection = collection.where(column_name => values) if values.present?
+      values = params[column_name]['ot'].to_s.split(',').map(&:strip)
+      @collection = collection.where.not(column_name => values) if values.present?
+    end
+  end
 
   def base_sortable_collection
     values = params[:sort].to_s.split(',').map(&:strip)
