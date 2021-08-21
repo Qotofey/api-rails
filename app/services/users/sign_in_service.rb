@@ -1,5 +1,5 @@
-class Users::SignInService < Users::BaseService
-  def initialize()
+class Users::SignInService
+  def initialize
 
   end
 
