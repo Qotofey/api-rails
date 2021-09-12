@@ -12,6 +12,6 @@ class V1::Users::SignInController < ApplicationController
   private
 
   def sign_in_params
-    params.require(:sign_in).permit(%i[email password])
+    params.require(:data).permit(%i[email password])
   end
 end
