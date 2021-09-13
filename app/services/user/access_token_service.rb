@@ -1,4 +1,4 @@
-class Users::AccessTokenService
+class User::AccessTokenService
   def initialize(token)
     @token = token
   end

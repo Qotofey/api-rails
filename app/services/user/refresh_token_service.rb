@@ -1,4 +1,4 @@
-class Users::RefreshTokenService
+class User::RefreshTokenService
   def initialize(token)
 
   end

@@ -1,4 +1,4 @@
-class Users::SignInService
+class User::SignUpService
   def initialize
 
   end
@@ -8,6 +8,4 @@ class Users::SignInService
   end
 
   private
-
-
 end

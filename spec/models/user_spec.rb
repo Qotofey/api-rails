@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: users
+# Table name: user
 #
 #  id                   :bigint           not null, primary key
 #  birth_date           :date

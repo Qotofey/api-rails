@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe '/v1/users/sign_in', type: :request do
+RSpec.describe '/v1/user/sign_in', type: :request do
   let(:valid_headers) { {} }
   let(:valid_attributes) { { email: 'test@qotofey.ru', password: 'Password123' } }
 
