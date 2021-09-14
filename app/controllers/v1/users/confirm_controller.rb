@@ -1,9 +1,7 @@
 class V1::Users::ConfirmController < ApplicationController
   before_action :set_user, only: %i[update]
 
-  def update
-
-  end
+  def update; end
 
   private
 

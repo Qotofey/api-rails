@@ -1,11 +1,7 @@
 class V1::Users::TokenController < ApplicationController
-  def update
+  def update; end
 
-  end
-
-  def destroy
-
-  end
+  def destroy; end
 
   private
 

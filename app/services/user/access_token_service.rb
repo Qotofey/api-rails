@@ -3,9 +3,7 @@ class User::AccessTokenService
     @token = token
   end
 
-  def call
-
-  end
+  def call; end
 
   private
 

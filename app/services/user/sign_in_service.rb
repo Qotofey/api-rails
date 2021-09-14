@@ -1,13 +1,5 @@
 class User::SignInService
-  def initialize
+  def initialize; end
 
-  end
-
-  def call
-
-  end
-
-  private
-
-
+  def call; end
 end

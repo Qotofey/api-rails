@@ -1,9 +1,5 @@
 class User::RefreshTokenService
-  def initialize(token)
+  def initialize(token); end
 
-  end
-
-  def call
-
-  end
+  def call; end
 end

@@ -34,7 +34,6 @@ class ApplicationPresenter
 
   def custom_sortable_collection; end
 
-
   # `lt` - less then
   # `lte` - less than or equal to
   # `gt` - greater than
