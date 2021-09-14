@@ -42,6 +42,7 @@ group :development do
   gem 'capistrano-bundler'
   gem 'capistrano-rails'
   gem 'capistrano-rbenv'
+  gem 'fuubar'
   gem 'listen', '~> 3.3'
   gem 'spring'
 end

@@ -62,6 +62,6 @@ RSpec.describe User, type: :model do
     end
   end
 
-  it_behaves_like 'confirmable'
-  it_behaves_like 'deletable'
+  # it_behaves_like 'confirmable'
+  # it_behaves_like 'deletable'
 end
