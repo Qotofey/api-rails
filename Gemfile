@@ -9,6 +9,7 @@ gem 'pundit'
 gem 'rails', '~> 6.1.3', '>= 6.1.3.2'
 gem 'russian', '~> 0.6.0'
 gem 'will_paginate'
+gem 'pagy'
 
 # Use Redis adapter to run Action Cable in production
 gem 'hiredis'
