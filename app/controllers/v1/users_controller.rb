@@ -30,7 +30,7 @@ class V1::UsersController < ApplicationController
   end
 
   def destroy
-    @user.soft_destroy
+    User::SoftDeletionService.new(@user).call
   end
 
   private

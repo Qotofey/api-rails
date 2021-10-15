@@ -11,7 +11,7 @@ RSpec.describe '/v1/user/sign_in', type: :request do
       it 'respond with 201'
 
       it do
-        post v1_users_sign_in_url, params: { sign_in: valid_attributes }, headers: valid_headers, as: :json
+        post v1_users_sign_in_index, params: { sign_in: valid_attributes }, headers: valid_headers, as: :json
 
         expect(response).to have_http_status(:created)
       end
