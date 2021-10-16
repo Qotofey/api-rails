@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe '/v1/user', type: :request do
+RSpec.describe '/v1/users', type: :request do
   let(:valid_attributes) { attributes_for(:user) }
   let(:invalid_attributes) { { promo: nil } }
 

@@ -9,7 +9,5 @@ class User::AuthenticationService
 
   private
 
-  def base_auth
-
-  end
+  def base_auth; end
 end

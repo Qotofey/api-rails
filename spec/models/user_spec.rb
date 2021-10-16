@@ -40,10 +40,10 @@ RSpec.describe User, type: :model do
     it { is_expected.not_to be_confirmed }
     it { is_expected.not_to be_deleted }
 
-    context 'by admin' do
-      it 'sets a non-empty created_by_user_id'
-      it 'sets a non-empty updated_by_user_id'
-    end
+    # context 'by admin' do
+    #   it 'sets a non-empty created_by_user_id'
+    #   it 'sets a non-empty updated_by_user_id'
+    # end
   end
 
   describe '#full_name' do
