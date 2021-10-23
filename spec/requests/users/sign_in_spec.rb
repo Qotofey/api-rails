@@ -1,10 +1,10 @@
 require 'rails_helper'
 
-RSpec.describe '/v1/user/sign_in', type: :request do
+RSpec.describe '/v1/users/sign_in', type: :request do
   # let(:valid_headers) { {} }
   # let(:valid_attributes) { { email: 'test@qotofey.ru', password: 'Password123' } }
   #
-  # before { create(:user, valid_attributes) }
+  # before { create(:users, valid_attributes) }
   #
   # describe 'POST /create' do
   #   context 'with valid parameters' do

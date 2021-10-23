@@ -32,5 +32,6 @@ module ApiRails
     config.autoload_paths << Rails.root.join('lib')
     config.autoload_paths << Rails.root.join('app', 'validators')
     config.autoload_paths << Rails.root.join('app', 'services')
+    config.autoload_paths << Rails.root.join('app', 'forms')
   end
 end

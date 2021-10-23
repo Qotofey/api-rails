@@ -3,9 +3,9 @@
 # Defines a single server with a list of roles and multiple properties.
 # You can define all roles on a single server, or split them:
 
-# server "example.com", user: "deploy", roles: %w{app db web}, my_property: :my_value
-# server "example.com", user: "deploy", roles: %w{app web}, other_property: :other_value
-# server "db.example.com", user: "deploy", roles: %w{db}
+# server "example.com", users: "deploy", roles: %w{app db web}, my_property: :my_value
+# server "example.com", users: "deploy", roles: %w{app web}, other_property: :other_value
+# server "db.example.com", users: "deploy", roles: %w{db}
 server 'api.qotofey.ru', roles: %w[web app db], primary: true
 
 set :stage, :production
@@ -118,10 +118,10 @@ set :puma_restart_command, 'bundle exec puma'
 # The server-based syntax can be used to override options:
 # ------------------------------------
 # server "example.com",
-#   user: "user_name",
+#   users: "user_name",
 #   roles: %w{web app},
 #   ssh_options: {
-#     user: "user_name", # overrides user setting above
+#     users: "user_name", # overrides users setting above
 #     keys: %w(/home/user_name/.ssh/id_rsa),
 #     forward_agent: false,
 #     auth_methods: %w(publickey password)
