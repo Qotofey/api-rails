@@ -93,6 +93,10 @@ class User < ApplicationRecord
     @format_phone ||= "+#{phone}"
   end
 
+  def policy_class
+    UserPolicy
+  end
+
   private
 
   def identifiers_preprocess

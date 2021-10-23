@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::API
+  include Authorization
   rescue_from Pundit::NotAuthorizedError, with: :render_forbidden
 
   private
