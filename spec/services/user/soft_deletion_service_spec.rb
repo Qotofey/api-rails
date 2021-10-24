@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe User::SoftDeletionService do
   describe '#call' do
-    context 'when the users has deleted_at' do
+    context 'when the user has deleted_at' do
       let(:user) { create(:user, :undeleted) }
 
       before { described_class.new(user).call }

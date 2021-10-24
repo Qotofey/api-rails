@@ -30,7 +30,7 @@ append :linked_dirs, 'log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'public/syst
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
 
 # Default value for local_user is ENV['USER']
-# set :local_user, -> { `git config users.name`.chomp }
+# set :local_user, -> { `git config user.name`.chomp }
 
 # Default value for keep_releases is 5
 set :keep_releases, 3

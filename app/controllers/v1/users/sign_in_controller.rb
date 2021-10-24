@@ -1,17 +1,19 @@
 class V1::Users::SignInController < ApplicationController
   def create
-    validator = AuthByEmailValidator.new(sign_in_params)
-    user = validator.call
+    form = User::SignInForm.new(authentication_params)
+    user = form.submit
     if user
-      render json: ::JwtSerializer.new(user).as_json
+      jwt = User::JwtCreationService.new(user).call
+      # byebug
+      render json: ::JwtSerializer.new(jwt).as_json
     else
-      render json: user.errors, status: :unprocessable_entity
+      render json: form.errors, status: :unprocessable_entity
     end
   end
 
   private
 
-  def sign_in_params
+  def authentication_params
     params.require(:data).permit(%i[email password])
   end
 end

@@ -4,19 +4,19 @@ RSpec.describe User::CreationService do
   describe '#call' do
     let(:valid_attributes) { attributes_for(:user, :unconfirmed) }
 
-    context 'when the users is not yet created' do
-      it 'creates a new users' do
+    context 'when the user is not yet created' do
+      it 'creates a new user' do
         expect do
           described_class.new(valid_attributes).call
         end.to change(User, :count).by(1)
       end
     end
 
-    context 'when the users is already created' do
+    context 'when the user is already created' do
       context '& not confirmed' do
         before { create(:user, valid_attributes) }
 
-        it 'does not create a new users' do
+        it 'does not create a new user' do
           expect do
             described_class.new(valid_attributes).call
           end.to change(User, :count).by(0)
@@ -28,7 +28,7 @@ RSpec.describe User::CreationService do
 
         before { create(:user, valid_attributes) }
 
-        it 'does not create a new users' do
+        it 'does not create a new user' do
           expect do
             described_class.new(valid_attributes).call
           end.to change(User, :count).by(0)
@@ -38,7 +38,7 @@ RSpec.describe User::CreationService do
       context '& deleted' do
         before { create(:user, valid_attributes) }
 
-        it 'does not create a new users' do
+        it 'does not create a new user' do
           expect do
             described_class.new(valid_attributes).call
           end.to change(User, :count).by(0)

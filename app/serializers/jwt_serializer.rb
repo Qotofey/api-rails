@@ -1,13 +1,13 @@
 class JwtSerializer
-  def initialize(user)
-    @user = user
+  def initialize(hash)
+    @hash = hash
   end
 
   def as_json
     {
-      access_token: @user.access_token,
-      expires_in: @user.expires_in,
-      user: ::Users::IndexSerializer.new(@user).as_json
+      access_token: @hash[:access_token],
+      refresh_token: @hash[:refresh_token],
+      expires_in: @hash[:expires_in]
     }
   end
 end

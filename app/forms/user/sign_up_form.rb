@@ -1,3 +1,3 @@
-class Users::SignUpForm
+class User::SignUpForm
   include ActiveModel::Model
 end
