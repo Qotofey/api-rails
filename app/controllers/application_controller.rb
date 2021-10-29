@@ -1,5 +1,7 @@
 class ApplicationController < ActionController::API
   include Authorization
+  include Paginable
+
   rescue_from Pundit::NotAuthorizedError, with: :render_forbidden
 
   private
