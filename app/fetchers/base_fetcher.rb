@@ -1,7 +1,4 @@
-#
-# Deprecated
-#
-class ApplicationPresenter
+class BaseFetcher
   attr_reader :collection, :params, :only
 
   DEFAULT_PAGE = 1

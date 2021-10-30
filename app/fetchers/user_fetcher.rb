@@ -1,8 +1,5 @@
-#
-# Deprecated
-#
-class Users::IndexPresenter < ApplicationPresenter
-  def users
+class UserFetcher < BaseFetcher
+  def call
     @collection = collection_class.available
     fetch_only_fields
     apply_filtering
