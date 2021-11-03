@@ -3,8 +3,8 @@ class User::SignInForm
 
   attr_accessor :email, :password
 
-  validates :email, presence: true
-  validates :password, presence: true
+  validates :email, presence: { message: 'blank' }
+  validates :password, presence: { message: 'blank' }
 
   def submit
     return false unless valid?

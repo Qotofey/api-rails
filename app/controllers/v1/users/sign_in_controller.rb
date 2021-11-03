@@ -4,10 +4,9 @@ class V1::Users::SignInController < ApplicationController
     user = form.submit
     if user
       jwt = User::JwtCreationService.new(user).call
-      # byebug
       render json: ::JwtSerializer.new(jwt).as_json
     else
-      render json: form.errors, status: :unprocessable_entity
+      render json: form.errors, status: :unauthorized
     end
   end
 
