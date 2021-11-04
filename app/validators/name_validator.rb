@@ -1,11 +1,9 @@
 class NameValidator < ActiveModel::EachValidator
   def validate_each(record, attribute, value)
-    record.errors.add(attribute, :bad_format) if self.class.valid?(value)
+    record.errors.add(attribute, :bad_format) unless valid_name?(value)
   end
 
-  class << self
-    def valid?(name)
-      name.to_s =~ /\A[а-яё]+\z/i
-    end
+  def valid_name?(name)
+    name.to_s =~ /\A[a-zа-яё]*\z/i
   end
 end
