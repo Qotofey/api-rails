@@ -263,6 +263,7 @@ GEM
 
 PLATFORMS
   x86_64-darwin-20
+  x86_64-linux
 
 DEPENDENCIES
   active_model_serializers
@@ -299,4 +300,4 @@ DEPENDENCIES
   will_paginate
 
 BUNDLED WITH
-   2.2.28
+   2.2.29
