@@ -13,7 +13,7 @@ set :rails_env, :production
 set :branch, 'main'
 
 set :user, 'deploy'
-set :use_sudo, true
+set :use_sudo, false
 set :deploy_via, :remote_cache
 set :rbenv_custom_path, '/home/deploy/.rbenv'
 
