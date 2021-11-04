@@ -1,16 +1,17 @@
 class V1::Users::SignUpController < ApplicationController
   def create
-    user = User.new(sign_up_params)
+    user = User.new(registration_params) # TODO: заменить на Service/Form Object
+
     if user.save
-      render json: { status: :ok }
+      render json: { status: :created }
     else
-      render json: user.errors, status: :unprocessable_entity
+      render json: user.errors, status: :forbidden
     end
   end
 
   private
 
-  def sign_up_params
-    params.require(:data).permit(%i[email password password_confirmation])
+  def registration_params
+    params.require(:data).permit(%i[email promo password password_confirmation])
   end
 end

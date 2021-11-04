@@ -22,7 +22,7 @@ class User::SignInForm
   end
 
   def registered_user
-    @registered_user ||= users_by_email.first
+    @registered_user ||= users_by_email.take
   end
 
   def valid_registration?

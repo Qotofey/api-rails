@@ -1,3 +1,7 @@
+# Deprecated
+#
+# TODO: to delete
+#
 class AuthByEmailValidator
   attr_accessor :email, :password
 

@@ -59,16 +59,10 @@ class User < ApplicationRecord
   scope :birth_date_to, ->(date) { where('birth_date <= ?', date) }
 
   scope :by_gender, ->(gender) { where(gender: gender) }
+  scope :by_email, ->(email) { where(email: email.strip.downcase) }
+  scope :by_phone, ->(phone) { where(email: phone.gsub(/\s/, '').sub(/(^+)8/, '7').gsub(/\D/, '')) }
+  scope :by_promo, ->(promo) { where(promo: promo.strip.downcase) }
 
-  scope :by_promo, lambda { |promo|
-    where("LOWER(#{table_name}.promo) LIKE ?", "%#{promo.strip.downcase}%")
-  }
-  scope :by_phone, lambda { |phone|
-    where("#{table_name}.phone LIKE ?", "%#{phone.gsub(/\s/, '').sub(/(^+)8/, '7').gsub(/\D/, '')}%")
-  }
-  scope :by_email, lambda { |email|
-    where("LOWER(#{table_name}.email) LIKE ?", "%#{email.strip.downcase}%")
-  }
   scope :by_first_name, lambda { |name|
     where("LOWER(#{table_name}.first_name) LIKE ?", "%#{name.strip.downcase}%")
   }
