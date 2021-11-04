@@ -38,7 +38,7 @@ class V1::UsersController < ApplicationController
   def set_user
     @user = User.find(params[:id])
 
-    authorize @user
+    # authorize @user
   end
 
   def user_params

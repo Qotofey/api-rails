@@ -16,6 +16,11 @@ ruby-2.7.4
 gem install mysql2 -v '0.5.3'  --source 'https://rubygems.org/' -- --with-cppflags=-I/usr/local/opt/openssl/include --with-ldflags=-L/usr/local/opt/openssl/lib
 ```
 
+Разработка велась на macOS. `bundler` не добавил linux-платформу Gemfile.lock, из-за чего возникли проблемы при развёртывании. Решение:
+```shell
+bundle lock --add-platform x86_64-linux
+```
+
 * Configuration
 
 * Database creation
