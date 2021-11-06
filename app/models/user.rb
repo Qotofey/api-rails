@@ -44,11 +44,11 @@ class User < ApplicationRecord
   validates :first_name, name: true, presence: true, length: { maximum: 255 }
   validates :last_name, name: true, presence: true, length: { maximum: 255 }
   validates :middle_name, name: true, allow_blank: true, length: { maximum: 255 }
-  validates :promo, presence: true, uniqueness: { case_sensitive: false }, length: { maximum: 16 }
+  validates :promo, slug: true, presence: true, uniqueness: { case_sensitive: false }, length: { maximum: 16 }
   validates :email, presence: true, uniqueness: { case_sensitive: false }, length: { maximum: 255 }
   validates :phone, uniqueness: true, allow_blank: true, length: { is: 11 }
 
-  before_save :identifiers_preprocess, :names_preprocess
+  before_validation :identifiers_preprocess, :names_preprocess
 
   scope :available, -> { UserPolicy::Scope.new(current_user, self).resolve }
 

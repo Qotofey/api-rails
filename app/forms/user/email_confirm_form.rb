@@ -35,6 +35,7 @@ class User::EmailConfirmForm
     false
   end
 
+  # TODO: include redis
   def valid_confirmation_code?
     return true if code.eql? '11111'
 
