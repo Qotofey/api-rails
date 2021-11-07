@@ -1,4 +1,4 @@
-class V1::Users::Password::SendRecoveryCodeController < ApplicationController
+class V1::Users::Email::SendRecoveryCodeController < ApplicationController
   def create; end
 
   private

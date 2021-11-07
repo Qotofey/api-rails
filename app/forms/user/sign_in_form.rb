@@ -18,7 +18,7 @@ class User::SignInForm
   private
 
   def users_by_email
-    @users_by_email ||= User.by_email(email.strip).not_deleted
+    @users_by_email ||= User.by_email(email).not_deleted
   end
 
   def registered_user

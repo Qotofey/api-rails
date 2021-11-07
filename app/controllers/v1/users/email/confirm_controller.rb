@@ -5,8 +5,7 @@ class V1::Users::Email::ConfirmController < ApplicationController
     if user
       User::ConfirmationService.new(user).call
 
-      render json: { id: user.id, email: user.email, confirmed_at: user.confirmed_at },
-             status: :accepted
+      render json: Users::ConfirmationSerializer.new(user).as_json, status: :accepted
     else
       render json: form.errors, status: :unprocessable_entity
     end

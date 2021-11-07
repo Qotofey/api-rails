@@ -17,7 +17,7 @@ class User::EmailConfirmForm
   private
 
   def users_by_id_or_email
-    User.by_email(email.strip) || User.by_id(id)
+    User.by_email(email) || User.by_id(id)
   end
 
   def unconfirmed_users_by_email

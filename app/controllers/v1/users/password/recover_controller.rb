@@ -3,11 +3,9 @@ class V1::Users::Password::RecoverController < ApplicationController
     form = User::RecoverForm.new(recovery_params)
     user = form.submit
     if user
-      # User::ConfirmationService.new(user).call
-      #
-      # render json: { id: user.id, email: user.email, confirmed_at: user.confirmed_at },
-      #        status: :accepted
-      render_ok
+      User::RecoveryService.new(user, recovery_params[:password]).call
+
+      render json: Users::RecoverySerializer.new(user).as_json, status: :accepted
     else
       render json: form.errors, status: :unprocessable_entity
     end
