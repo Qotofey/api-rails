@@ -1,6 +1,4 @@
 require 'rails_helper'
 
-RSpec.describe User::HardDeletionService do
-  describe '#call' do
-  end
+RSpec.describe User::HardDeletionService, '#call' do
 end
