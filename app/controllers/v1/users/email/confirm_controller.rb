@@ -3,7 +3,7 @@ class V1::Users::Email::ConfirmController < ApplicationController
     form = User::EmailConfirmForm.new(confirmation_params)
     user = form.submit
     if user
-      User::ConfirmationService.new(user).call
+      User::ConfirmationService.new(user, active_user).call
 
       render json: Users::ConfirmationSerializer.new(user).as_json, status: :accepted
     else

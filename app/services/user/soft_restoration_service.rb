@@ -4,6 +4,10 @@ class User::SoftRestorationService
   end
 
   def call
-    @user.soft_restore
+    @user.assign_attributes(
+      deleted_at: nil,
+      deleted_by_user_id: nil
+    )
+    @user.save(validate: false)
   end
 end
