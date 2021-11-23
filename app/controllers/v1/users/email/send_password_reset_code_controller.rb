@@ -1,9 +1,9 @@
-class V1::Users::Email::SendConfirmationCodeController < ApplicationController
+class V1::Users::Email::SendPasswordResetCodeController < ApplicationController
   def create
     form = User::IdEmailForm.new(recovery_params)
     user = form.submit
     if user
-      VerificationMailer.with(user: user).make.deliver_later
+      PasswordResetMailer.with(user: user).make.deliver_later
       render_ok
     else
       render json: form.errors, status: :unprocessable_entity
@@ -12,7 +12,7 @@ class V1::Users::Email::SendConfirmationCodeController < ApplicationController
 
   private
 
-  def confirmation_params
+  def recovery_params
     params.require(:data).permit(%i[id email])
   end
 end

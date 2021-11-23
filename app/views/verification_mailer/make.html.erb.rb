@@ -1,0 +1,1 @@
+SAMPLE verification_mailer

@@ -1,0 +1,1 @@
+SAMPLE password_reset_mailer
