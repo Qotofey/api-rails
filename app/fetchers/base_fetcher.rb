@@ -5,9 +5,10 @@ class BaseFetcher
   DEFAULT_PER_PAGE = 25
   MAX_PER_PAGE = 100
 
-  def initialize(params)
+  def initialize(params, current_user)
     @collection = ApplicationRecord.none
     @params = params
+    @current_user = current_user
   end
 
   private

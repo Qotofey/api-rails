@@ -20,47 +20,48 @@ class ApplicationRecord < ActiveRecord::Base
   scope :updated_from, ->(time) { where('updated_at >= ?', time) }
   scope :updated_to, ->(time) { where('updated_at <= ?', time) }
 
-  before_create :ensure_initiators_inclusion
-  before_update :ensure_updater_inclusion
+  # TODO: всё, что ниже перенести в проект интернет-магазина, после чего от сюда удалить
+  # before_create :ensure_initiators_inclusion
+  # before_update :ensure_updater_inclusion
 
-  class << self
-    def current_user=(user)
-      Thread.current[:current_user] = user
-    end
-
-    def current_user
-      Thread.current[:current_user] || User.new
-    end
-
-    def access_token=(token)
-      Thread.current[:access_token] = token
-    end
-
-    def access_token
-      Thread.current[:access_token]
-    end
-  end
-
-  private
-
-  def current_user
-    self.class.current_user
-  end
-
-  def current_user_id
-    self.class.current_user.id
-  end
-
-  def ensure_initiators_inclusion
-    return unless new_record?
-
-    self.created_by_user_id ||= current_user_id if respond_to?(:created_by_user_id)
-    self.updated_by_user_id ||= current_user_id if respond_to?(:updated_by_user_id)
-  end
-
-  def ensure_updater_inclusion
-    self.updated_by_user_id ||= current_user_id if respond_to?(:updated_by_user_id)
-  end
+  # class << self
+  #   def current_user=(user)
+  #     Thread.current[:current_user] = user
+  #   end
+  #
+  #   def current_user
+  #     Thread.current[:current_user] || User.new
+  #   end
+  #
+  #   def access_token=(token)
+  #     Thread.current[:access_token] = token
+  #   end
+  #
+  #   def access_token
+  #     Thread.current[:access_token]
+  #   end
+  # end
+  #
+  # private
+  #
+  # def current_user
+  #   self.class.current_user
+  # end
+  #
+  # def current_user_id
+  #   self.class.current_user.id
+  # end
+  #
+  # def ensure_initiators_inclusion
+  #   return unless new_record?
+  #
+  #   self.created_by_user_id ||= current_user_id if respond_to?(:created_by_user_id)
+  #   self.updated_by_user_id ||= current_user_id if respond_to?(:updated_by_user_id)
+  # end
+  #
+  # def ensure_updater_inclusion
+  #   self.updated_by_user_id ||= current_user_id if respond_to?(:updated_by_user_id)
+  # end
 
   # class << self
   #   %i[integer string date datetime].each do |type_name|

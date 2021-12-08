@@ -3,10 +3,6 @@ module Authorizable
 
   included do
     include Pundit
-
-    def current_user
-      self.class.active_user
-    end
   end
 
   def active_user=(user)

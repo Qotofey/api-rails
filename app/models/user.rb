@@ -50,7 +50,7 @@ class User < ApplicationRecord
 
   before_validation :identifiers_preprocess, :names_preprocess
 
-  scope :available, -> { UserPolicy::Scope.new(current_user, self).resolve }
+  scope :available, ->(current_user) { UserPolicy::Scope.new(current_user, self).resolve }
 
   scope :by_birth_date, ->(date) { where(birth_date: date) }
   scope :birth_date_after, ->(date) { where('birth_date > ?', date) }

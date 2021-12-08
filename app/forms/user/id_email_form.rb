@@ -5,7 +5,5 @@ class User::IdEmailForm
 
   validates :email, presence: { message: 'blank' }, if: -> { id.blank? }
 
-  def submit
-
-  end
+  def submit; end
 end

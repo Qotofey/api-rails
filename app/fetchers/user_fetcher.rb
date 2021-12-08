@@ -1,6 +1,6 @@
 class UserFetcher < BaseFetcher
   def call
-    @collection = collection_class.available
+    @collection = collection_class.available(@current_user)
     fetch_only_fields
     apply_filtering
     apply_sorting

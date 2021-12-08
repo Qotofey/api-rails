@@ -2,7 +2,7 @@ class V1::UsersController < ApplicationController
   before_action :set_user, only: %i[show update destroy]
 
   def index
-    collection = ::UserFetcher.new(params).call
+    collection = ::UserFetcher.new(params, active_user).call
 
     render_collection collection, each_serializer: ::Users::IndexSerializer
   end
