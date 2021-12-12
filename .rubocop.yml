@@ -8,10 +8,6 @@ AllCops:
     - 'engines/**/db/seeds/**/*'
     - 'engines/**/db/migrate/**/*'
 
-
-Style/FrozenStringLiteralComment:
-  Enabled: false
-
 Style/Documentation:
   Enabled: false
 

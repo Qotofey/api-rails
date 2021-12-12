@@ -1,15 +1,10 @@
 class User::CreationService
-  def initialize(params)
+  def initialize(params, current_user = nil)
     @params = params
+    @current_user = current_user
   end
 
   def call
-    create_user
-  end
-
-  private
-
-  def create_user
     User.create(@params)
   end
 end

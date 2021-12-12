@@ -25,11 +25,11 @@ class ApplicationController < ActionController::API
     render status: :accepted
   end
 
-  def render_unauthorized_401
+  def render_unauthorized
     render status: :unauthorized
   end
 
-  def render_forbidden_403
+  def render_forbidden
     render status: :forbidden
   end
 end

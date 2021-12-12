@@ -25,7 +25,7 @@ class User::EmailConfirmForm
   end
 
   def unconfirmed_user
-    @registered_user ||= unconfirmed_users_by_email.take
+    @unconfirmed_user ||= unconfirmed_users_by_email.take
   end
 
   def valid_registration?
