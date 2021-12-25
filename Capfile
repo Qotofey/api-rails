@@ -13,6 +13,6 @@ install_plugin Capistrano::Puma
 install_plugin Capistrano::Puma::Systemd
 
 set :rbenv_type, :user
-set :rbenv_ruby, '2.7.4'
+set :rbenv_ruby, '2.7.5'
 
 Dir.glob('lib/capistrano/tasks/*.rake').each { |r| import r }
