@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class User::TokenAccessService
   def initialize(access_token, klass = User)
     @access_token = access_token

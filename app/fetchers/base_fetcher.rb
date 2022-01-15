@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class BaseFetcher
   attr_reader :collection, :params, :only
 

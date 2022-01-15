@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class UserFetcher < BaseFetcher
   def call
     @collection = collection_class.available(@current_user)

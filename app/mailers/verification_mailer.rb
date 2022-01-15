@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class VerificationMailer < ApplicationMailer
   def make
     @user = params[:user]

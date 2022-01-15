@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 module Authenticatable
   extend ActiveSupport::Concern
 
   included do
     const_set(:HMAC_SECRET, Rails.application.credentials.secret_key_base)
-    const_set(:HASH_ALGORITHM, 'HS256'.freeze)
+    const_set(:HASH_ALGORITHM, 'HS256')
     const_set(:ACCESS_TOKEN_LIFETIME_IN_MINUTES, 240)
     const_set(:REFRESH_TOKEN_LIFETIME_IN_DAYS, 90)
 
