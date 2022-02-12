@@ -3,7 +3,7 @@
 #
 # == Schema Information
 #
-# Table name: user
+# Table name: users
 #
 #  id                   :bigint           not null, primary key
 #  birth_date           :date

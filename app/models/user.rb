@@ -3,7 +3,7 @@
 #
 # == Schema Information
 #
-# Table name: user
+# Table name: users
 #
 #  id                   :bigint           not null, primary key
 #  birth_date           :date
@@ -43,6 +43,9 @@ class User < ApplicationRecord
     male: 'male',
     female: 'female'
   }
+
+  has_many :user_roles, dependent: :destroy
+  accepts_nested_attributes_for :user_roles, allow_destroy: true
 
   validates :first_name, name: true, presence: true, length: { maximum: 255 }
   validates :last_name, name: true, presence: true, length: { maximum: 255 }
